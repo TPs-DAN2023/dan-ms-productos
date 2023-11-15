@@ -1,0 +1,58 @@
+### Probar req cualquiera
+GET http://localhost:1234/
+
+### PRODUCTOS
+
+### Obtener todos los productos
+GET http://localhost:1234/api/productos/
+
+### Obtener productos por nombre del producto (ej: Queso)
+GET http://localhost:1234/api/productos?nomProducto=Queso
+
+### Crear un nuevo producto
+POST http://localhost:1234/api/productos
+
+### Modificar un producto existente (ej: 1)
+PUT http://localhost:1234/api/productos/1
+
+### Eliminar un producto existente (ej: 1)
+DELETE http://localhost:1234/api/productos/1
+
+### CATEGORIAS
+
+### Obtener una unica categoria por id (ej: 1)
+GET http://localhost:1234/api/categorias/1
+
+### Obtener categorias por nombre (ej: Cool)
+GET http://localhost:1234/api/categorias?nombre=Cool
+
+### PROVEEDORES
+
+### Obtener un unico proveedor por id (ej: 1)
+GET http://localhost:1234/api/proveedores/1
+
+### Obtener todas las ordenes de un proveedor por id (ej: 1)
+GET http://localhost:1234/api/proveedores/1/ordenes
+
+### Obtener proveedores por nombre (ej: Raul)
+GET http://localhost:1234/api/proveedores?nombre=Raul
+
+### ORDENES
+
+### Obtener una unica orden por id (ej: 1)
+GET http://localhost:1234/api/ordenes/1
+
+### Obtener ordenes por fecha minima de generacion (ej: date?)
+GET http://localhost:1234/api/ordenes?minFechaGen= date?
+
+### Obtener todos las ordenes de un unico proveedor por id (ej: 1)
+GET http://localhost:1234/api/ordenes/proveedor/1
+
+### Crear una nueva orden
+POST http://localhost:1234/api/ordenes
+
+### Modificar una orden existente (ej: 1)
+PUT http://localhost:1234/api/ordenes/1
+
+### Modificar solo un campo de una orden existente (ej: 1)
+PATCH http://localhost:1234/api/ordenes/1
