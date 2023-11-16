@@ -4,13 +4,14 @@ const prisma = new PrismaClient();
 
 async function createProducto(prod) {
 
-
   try {
     return await prisma.producto.create({
       data: {
-        ...prod,
-        proveedor: {connect: prod.proveedorId},
-        categoria: {connect: prod.categoriaId}
+        nombre: prod.nombre,
+        descripcion: prod.descripcion,
+        stockActual: prod.stockActual,
+        proveedor: {connect: {id: prod.proveedorId}},
+        categoria: {connect: {id: prod.categoriaId}}
       }
     });
   } catch (error) {
@@ -19,4 +20,4 @@ async function createProducto(prod) {
   }
 }
 
-export { createProducto };
+export default { createProducto };

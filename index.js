@@ -1,3 +1,5 @@
+import express from 'express'
+import routerProductos from './src/routes/ProductoRoutes.js';
 // Esta es una prueba que se encuentra en el power NodeJS 
 // const http = require('http');
 
@@ -14,23 +16,20 @@
 //   console.log(`El servidor se esta ejecutando en http://${hostname}:${port}/`)
 // });
 
-const express = require('express');
-const { routerProductos } = require('./src/routes/ProductoRoutes');
 // const exp = require('constants');
 
-const PORT = process.env.PORT ?? 1234
+const PORT = process.env.PORT ?? 1234;
 
-const app = express()
-// app.disable('x-powered-by')
-
-// app.use(express.json())
+const app = express();
+app.use(express.json());
 
 app.get('/', (req, res) => {
   // res.status(200).send('<h1>Mi pagina</h1>')
   res.json({ message: 'Hola mundo' })
 })
 
-app.get('/api/productos', routerProductos);
+// .use para usar un router
+app.use('/api/productos', routerProductos);
 
 app.get('/api/categorias', (req, res) => {
   // res.status(200).send('<h1>Mi pagina</h1>')

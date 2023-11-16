@@ -1,11 +1,10 @@
-import { createProducto } from "../repository/ProductoRepo"
-
+import productoRepo from "../repository/ProductoRepo.js"
 
 async function crearProducto(producto) {
 
   //TODO: validar logica de negocio
-  return await createProducto(producto);
+  return await productoRepo.createProducto(producto);
 
 }
 
-export { crearProducto }
+export default { crearProducto }
