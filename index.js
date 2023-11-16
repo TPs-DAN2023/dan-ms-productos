@@ -15,6 +15,7 @@
 // });
 
 const express = require('express');
+const { routerProductos } = require('./src/routes/ProductoRoutes');
 // const exp = require('constants');
 
 const PORT = process.env.PORT ?? 1234
@@ -29,10 +30,7 @@ app.get('/', (req, res) => {
   res.json({ message: 'Hola mundo' })
 })
 
-app.get('/api/productos', (req, res) => {
-  // res.status(200).send('<h1>Mi pagina</h1>')
-  res.json({ message: 'Hola productos' })
-})
+app.get('/api/productos', routerProductos);
 
 app.get('/api/categorias', (req, res) => {
   // res.status(200).send('<h1>Mi pagina</h1>')
