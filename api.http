@@ -1,24 +1,15 @@
 ### Probar req cualquiera
 GET http://localhost:1234/
 
-### PRODUCTOS
-
-### Obtener todos los productos
-GET http://localhost:1234/api/productos/
-
-### Obtener productos por nombre del producto (ej: Queso)
-GET http://localhost:1234/api/productos?nomProducto=Queso
-
-### Crear un nuevo producto
-POST http://localhost:1234/api/productos
-
-### Modificar un producto existente (ej: 1)
-PUT http://localhost:1234/api/productos/1
-
-### Eliminar un producto existente (ej: 1)
-DELETE http://localhost:1234/api/productos/1
-
 ### CATEGORIAS
+
+### Crear una nueva categoria
+POST http://localhost:1234/api/categorias HTTP/1.1
+content-type: application/json
+
+{
+  "nombre": "Cooler"
+}
 
 ### Obtener una unica categoria por id (ej: 1)
 GET http://localhost:1234/api/categorias/1
@@ -28,6 +19,15 @@ GET http://localhost:1234/api/categorias?nombre=Cool
 
 ### PROVEEDORES
 
+### Crear un nuevo proveedor
+POST http://localhost:1234/api/proveedores HTTP/1.1
+content-type: application/json
+
+{
+  "nombre": "Juan Perez",
+  "mail": "raulperez@prueba.com"
+}
+
 ### Obtener un unico proveedor por id (ej: 1)
 GET http://localhost:1234/api/proveedores/1
 
@@ -36,6 +36,32 @@ GET http://localhost:1234/api/proveedores/1/ordenes
 
 ### Obtener proveedores por nombre (ej: Raul)
 GET http://localhost:1234/api/proveedores?nombre=Raul
+
+### PRODUCTOS
+
+### Obtener todos los productos
+GET http://localhost:1234/api/productos/
+
+### Obtener productos por nombre del producto (ej: Queso)
+GET http://localhost:1234/api/productos?nomProducto=Queso
+
+### Crear un nuevo producto
+POST http://localhost:1234/api/productos HTTP/1.1
+content-type: application/json
+
+{
+  "nombre": "Queso",
+  "descripcion": "Queso de cabra",
+  "proveedorId": 1,
+  "stockActual": 10,
+  "categoriaId": 1
+}
+
+### Modificar un producto existente (ej: 1)
+PUT http://localhost:1234/api/productos/1
+
+### Eliminar un producto existente (ej: 1)
+DELETE http://localhost:1234/api/productos/1
 
 ### ORDENES
 
