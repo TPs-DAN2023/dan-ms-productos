@@ -5,7 +5,7 @@ async function crearCategoria(req, res) {
   const category = req.body;
 
   if (!category.nombre)
-    return res.status(400).json("Faltan campos obligatorios");
+    return res.status(400).json({ error: 'Faltan datos', missingData: 'nombre' });
 
   try {
     const categoryResult = await categoriaService.crearCategoria(category);

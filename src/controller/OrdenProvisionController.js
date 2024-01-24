@@ -5,7 +5,7 @@ async function crearOrdenProvision(req, res) {
   const supplyOrder = req.body;
 
   if (!supplyOrder.fechaGeneracion || !supplyOrder.fechaRecepcion || !supplyOrder.proveedorId)
-    return res.status(400).json("Faltan campos obligatorios");
+    return res.status(400).json({ error: 'Faltan datos', missingData: getMissingData(supplyOrder) });
 
   try {
     const supplyOrderResult = await ordenProvisionService.crearOrdenProvision(supplyOrder);
@@ -15,6 +15,14 @@ async function crearOrdenProvision(req, res) {
   }
 
 };
+
+function getMissingData(supplyOrder) {
+  let missingData = [];
+  if (!supplyOrder.fechaGeneracion) missingData.push('fechaGeneracion');
+  if (!supplyOrder.fechaRecepcion) missingData.push('fechaRecepcion');
+  if (!supplyOrder.proveedorId) missingData.push('proveedorId');
+  return missingData;
+}
 
 async function listarOrdenesProvision(req, res) {
 

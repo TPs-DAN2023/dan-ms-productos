@@ -5,7 +5,7 @@ async function crearProveedor(req, res) {
   const provider = req.body;
 
   if (!provider.nombre || !provider.mail)
-    return res.status(400).json("Faltan campos obligatorios");
+    return res.status(400).json({ error: 'Faltan datos', missingData: getMissingData(provider) });
 
   try {
     const providerResult = await proveedorService.crearProveedor(provider);
@@ -15,6 +15,13 @@ async function crearProveedor(req, res) {
   }
 
 };
+
+function getMissingData(provider) {
+  let missingData = [];
+  if (!provider.nombre) missingData.push('nombre');
+  if (!provider.mail) missingData.push('mail');
+  return missingData;
+}
 
 async function listarProveedores(req, res) {
 

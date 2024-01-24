@@ -6,7 +6,7 @@ async function crearProducto(req, res) {
 
   // puede haber productos sin proveedor o categoria?
   if (!prod.nombre || !prod.descripcion || !prod.proveedorId || !prod.stockActual || !prod.categoriaId)
-    return res.status(400).json("Faltan campos obligatorios");
+    return res.status(400).json({ error: 'Faltan datos', missingData: getMissingData(prod) });
 
   try {
     const producto = await productoService.crearProducto(prod);
@@ -16,6 +16,16 @@ async function crearProducto(req, res) {
   }
 
 };
+
+function getMissingData(prod) {
+  let missingData = [];
+  if (!prod.nombre) missingData.push('nombre');
+  if (!prod.descripcion) missingData.push('descripcion');
+  if (!prod.proveedorId) missingData.push('proveedorId');
+  if (!prod.stockActual) missingData.push('stockActual');
+  if (!prod.categoriaId) missingData.push('categoriaId');
+  return missingData;
+}
 
 async function listarProductos(req, res) {
 
