@@ -4,8 +4,14 @@ async function crearOrdenProvision(req, res) {
 
   const supplyOrder = req.body;
 
-  if (!supplyOrder.fechaGeneracion || !supplyOrder.fechaRecepcion || !supplyOrder.proveedorId)
+  if (!supplyOrder.fechaGeneracion || !supplyOrder.proveedorId)
     return res.status(400).json({ error: 'Faltan datos', missingData: getMissingData(supplyOrder) });
+
+  if (supplyOrder.esCancelada)
+    return res.status(400).json({ error: 'No se puede crear una orden de provisión cancelada' });
+
+  if (supplyOrder.fechaRecepcion)
+    return res.status(400).json({ error: 'No se puede crear una orden de provisión ya recibida' });
 
   try {
     const supplyOrderResult = await ordenProvisionService.crearOrdenProvision(supplyOrder);
@@ -97,6 +103,9 @@ async function cambiarEstadoOrdenProvision(req, res) {
 
   try {
     const supplyOrderResult = await ordenProvisionService.cambiarEstadoOrdenProvision(id, estado);
+    if (supplyOrderResult.fechaRecepcion) {
+      const productResult = await productoService.modificarStockDeProductos(supplyOrderResult);
+    }
     return res.status(200).json(supplyOrderResult);
   } catch (error) {
     return res.status(404).json({ error: error.message });

@@ -40,6 +40,11 @@ async function modificarProducto(id, producto) {
   return await productoRepo.updateProducto(id, producto);
 }
 
+async function modificarStockDeProducto(id, cantidad) {
+  // TODO: validar lógica de negocio
+  return await productoRepo.updateStockDeProducto(id, cantidad);
+}
+
 async function eliminarProducto(id) {
   // TODO: validar lógica de negocio
   return await productoRepo.deleteProducto(id);

@@ -53,5 +53,4 @@ async function listarCategoriaPorNombre(req, res) {
 
 }
 
-
 export default { crearCategoria, listarCategorias, listarCategoriaPorId, listarCategoriaPorNombre };

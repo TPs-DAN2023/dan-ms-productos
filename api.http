@@ -80,7 +80,7 @@ content-type: application/json
 
 {
   "fechaGeneracion": "2021-05-01T00:00:00.000Z",
-  "fechaRecepcion": "2021-05-01T00:00:00.000Z",
+  "fechaRecepcion": null,
   "esCancelada": false,
   "proveedorId": 1
 }
