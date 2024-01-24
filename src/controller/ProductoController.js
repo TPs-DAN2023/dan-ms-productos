@@ -17,15 +17,6 @@ async function crearProducto(req, res) {
 
 };
 
-// routerProductos.get('/', controller.listarProductos);
-// routerProductos.get('/:id', controller.listarProductoPorId);
-// routerProductos.get('/:nombre', controller.listarProductoPorNombre);
-// routerProductos.get('/categoria/:nombre', controller.listarProductoPorNombreCategoria);
-// routerProductos.get('/proveedor/:nombre', controller.listarProductoPorNombreProveedor);
-// routerProductos.get('/stock/:cantidad', controller.listarProductoPorStockActual);
-// routerProductos.put('/:id', controller.modificarProducto);
-// routerProductos.delete('/:id', controller.eliminarProducto);
-
 async function listarProductos(req, res) {
 
   try {
@@ -122,19 +113,6 @@ async function eliminarProducto(req, res) {
 
   try {
     const producto = await productoService.eliminarProducto(id);
-    return res.status(200).json(producto);
-  } catch (error) {
-    return res.status(404).json({ error: error.message });
-  }
-
-}
-
-async function listarProductoPorStockActual(req, res) {
-
-  const cantidad = req.params.cantidad;
-
-  try {
-    const producto = await productoService.listarProductoPorStockActual(cantidad);
     return res.status(200).json(producto);
   } catch (error) {
     return res.status(404).json({ error: error.message });
