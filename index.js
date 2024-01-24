@@ -1,22 +1,9 @@
 import express from 'express'
 import routerProductos from './src/routes/ProductoRoutes.js';
-// Esta es una prueba que se encuentra en el power NodeJS 
-// const http = require('http');
-
-// const hostname = '127.0.0.1';
-// const port = 3000;
-
-// const server = http.createServer((req, res) => {
-//   res.statusCode = 200;
-//   res.setHeader('Content-Type', 'text/plain');
-//   res.end('Hola Mundo');
-// });
-
-// server.listen(port, hostname, () => {
-//   console.log(`El servidor se esta ejecutando en http://${hostname}:${port}/`)
-// });
-
-// const exp = require('constants');
+import routerCategorias from './src/routes/CategoriaRoutes.js';
+import routerProveedores from './src/routes/ProveedorRoutes.js';
+import routerOrdenesProvision from './src/routes/OrdenProvisionRoutes.js';
+import routerOrdenesProvisionDetalle from './src/routes/OrdenProvisionDetalleRoutes.js';
 
 const PORT = process.env.PORT ?? 1234;
 
@@ -30,24 +17,22 @@ app.get('/', (req, res) => {
 
 // .use para usar un router
 app.use('/api/productos', routerProductos);
+app.use('/api/categorias', routerCategorias);
+app.use('/api/proveedores', routerProveedores);
+app.use('/api/ordenes-provision', routerOrdenesProvision);
+app.use('/api/ordenes-provision-detalle', routerOrdenesProvisionDetalle);
 
-app.get('/api/categorias', (req, res) => {
-  // res.status(200).send('<h1>Mi pagina</h1>')
-  res.json({ message: 'Hola categorias' })
-})
 
-app.get('/api/proveedores', (req, res) => {
-  // res.status(200).send('<h1>Mi pagina</h1>')
-  res.json({ message: 'Hola proveedores' })
-})
+// app.get('/api/categorias', (req, res) => {
+//   res.json({ message: 'Hola categorias' })
+// })
 
-app.get('/api/ordenes', (req, res) => {
-  // res.status(200).send('<h1>Mi pagina</h1>')
-  res.json({ message: 'Hola ordenes' })
-})
+// app.get('/api/proveedores', (req, res) => {
+//   res.json({ message: 'Hola proveedores' })
+// })
 
-// app.get('/pokemon', (req, res) => {
-//   res.status(201).json('Todo bien maestro')
+// app.get('/api/ordenes', (req, res) => {
+//   res.json({ message: 'Hola ordenes' })
 // })
 
 // la última a la que va a llegar
