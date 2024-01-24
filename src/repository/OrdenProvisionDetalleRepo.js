@@ -19,4 +19,54 @@ async function createOrdenProvisionDetalle(supplyOrderDetails) {
   }
 }
 
-export default { createOrdenProvisionDetalle };
+async function getOrdenesProvisionDetalle() {
+  try {
+    return await prisma.ordenProvisionDetalle.findMany();
+  } catch (error) {
+    //TODO: hacer excepciones
+    throw error;
+  }
+}
+
+async function getOrdenProvisionDetalleById(id) {
+  try {
+    return await prisma.ordenProvisionDetalle.findUnique({
+      where: {
+        id: parseInt(id)
+      }
+    });
+  } catch (error) {
+    //TODO: hacer excepciones
+    throw error;
+  }
+}
+
+// Puede ser interesante
+async function getOrdenProvisionDetalleByOrdenProvisionId(id) {
+  try {
+    return await prisma.ordenProvisionDetalle.findMany({
+      where: {
+        ordenProvisionId: parseInt(id)
+      }
+    });
+  } catch (error) {
+    //TODO: hacer excepciones
+    throw error;
+  }
+}
+
+// Puede ser interesante
+async function getOrdenProvisionDetalleByProductoId(id) {
+  try {
+    return await prisma.ordenProvisionDetalle.findMany({
+      where: {
+        productoId: parseInt(id)
+      }
+    });
+  } catch (error) {
+    //TODO: hacer excepciones
+    throw error;
+  }
+}
+
+export default { createOrdenProvisionDetalle, getOrdenesProvisionDetalle, getOrdenProvisionDetalleById, getOrdenProvisionDetalleByOrdenProvisionId, getOrdenProvisionDetalleByProductoId };
