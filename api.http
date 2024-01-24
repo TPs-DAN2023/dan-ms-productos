@@ -43,7 +43,7 @@ GET http://localhost:1234/api/proveedores?nombre=Raul
 GET http://localhost:1234/api/productos/
 
 ### Obtener productos por nombre del producto (ej: Queso)
-GET http://localhost:1234/api/productos?nomProducto=Queso
+GET http://localhost:1234/api/productos?nombre=Queso
 
 ### Crear un nuevo producto
 POST http://localhost:1234/api/productos HTTP/1.1
@@ -75,7 +75,15 @@ GET http://localhost:1234/api/ordenes?minFechaGen= date?
 GET http://localhost:1234/api/ordenes/proveedor/1
 
 ### Crear una nueva orden
-POST http://localhost:1234/api/ordenes
+POST http://localhost:1234/api/ordenes HTTP/1.1
+content-type: application/json
+
+{
+  "fechaGeneracion": "2021-05-01T00:00:00.000Z",
+  "fechaRecepcion": "2021-05-01T00:00:00.000Z",
+  "esCancelada": false,
+  "proveedorId": 1
+}
 
 ### Modificar una orden existente (ej: 1)
 PUT http://localhost:1234/api/ordenes/1

@@ -19,8 +19,9 @@ app.get('/', (req, res) => {
 app.use('/api/productos', routerProductos);
 app.use('/api/categorias', routerCategorias);
 app.use('/api/proveedores', routerProveedores);
-app.use('/api/ordenes-provision', routerOrdenesProvision);
-app.use('/api/ordenes-provision-detalle', routerOrdenesProvisionDetalle);
+app.use('/api/ordenes', routerOrdenesProvision);
+
+// app.use('/api/ordenes-provision-detalle', routerOrdenesProvisionDetalle);
 
 
 // app.get('/api/categorias', (req, res) => {

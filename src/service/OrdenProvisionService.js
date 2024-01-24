@@ -17,7 +17,7 @@ async function listarOrdenProvisionPorId(id) {
 
 async function listarOrdenProvisionPorIdProveedor(id) {
   // TODO: validar lógica de negocio
-  return await ordenProvisionRepo.getOrdenProvisionByIdProveedor(id);
+  return await ordenProvisionRepo.getOrdenProvisionByProveedorId(id);
 }
 
 // TODO: Validar si es correcto

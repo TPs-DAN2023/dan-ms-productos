@@ -4,7 +4,7 @@ async function crearOrdenProvision(req, res) {
 
   const supplyOrder = req.body;
 
-  if (!supplyOrder.fechaGeneracion || !supplyOrder.fechaRecepcion || !supplyOrder.esCancelada || !supplyOrder.proveedorId)
+  if (!supplyOrder.fechaGeneracion || !supplyOrder.fechaRecepcion || !supplyOrder.proveedorId)
     return res.status(400).json("Faltan campos obligatorios");
 
   try {
@@ -15,14 +15,6 @@ async function crearOrdenProvision(req, res) {
   }
 
 };
-
-// routerOrdenesProvision.get('/', controller.listarOrdenesProvision);
-// routerOrdenesProvision.get('/:id', controller.listarOrdenProvisionPorId);
-// routerOrdenesProvision.get('/proveedor/:id', controller.listarOrdenProvisionPorIdProveedor);
-// // TODO: Chequear si la siguiente es correcta o no
-// routerOrdenesProvision.get('/fecha/:desde/:hasta', controller.listarOrdenProvisionPorFecha);
-// routerOrdenesProvision.put('/:id', controller.modificarOrdenProvision);
-// routerOrdenesProvision.patch('/:id/estado', controller.cambiarEstadoOrdenProvision);
 
 async function listarOrdenesProvision(req, res) {
 
