@@ -1,5 +1,7 @@
-<img src="public/utnfrsf.png">
-<p></p>
+<div align="center">
+  <img src="public/utnfrsf.png">
+  <p></p>
+</div>
 
 # TP Parte 2 - Microservicios de gestión de PEDIDOS NodeJS
 
