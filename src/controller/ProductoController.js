@@ -30,7 +30,8 @@ function getMissingData(prod) {
 async function listarProductos(req, res) {
 
   try {
-    const productos = await productoService.listarProductos();
+    const nombre = req.query.nombre;
+    const productos = await productoService.listarProductos(nombre);
     return res.status(200).json(productos);
   } catch (error) {
     return res.status(404).json({ error: error.message });
@@ -44,19 +45,6 @@ async function listarProductoPorId(req, res) {
 
   try {
     const producto = await productoService.listarProductoPorId(id);
-    return res.status(200).json(producto);
-  } catch (error) {
-    return res.status(404).json({ error: error.message });
-  }
-
-}
-
-async function listarProductoPorNombre(req, res) {
-
-  const nombre = req.params.nombre;
-
-  try {
-    const producto = await productoService.listarProductoPorNombre(nombre);
     return res.status(200).json(producto);
   } catch (error) {
     return res.status(404).json({ error: error.message });
@@ -130,4 +118,4 @@ async function eliminarProducto(req, res) {
 
 }
 
-export default { crearProducto, listarProductos, listarProductoPorId, listarProductoPorNombre, listarProductoPorNombreCategoria, listarProductoPorNombreProveedor, listarProductoPorStockActual, modificarProducto, eliminarProducto };
+export default { crearProducto, listarProductos, listarProductoPorId, listarProductoPorNombreCategoria, listarProductoPorNombreProveedor, listarProductoPorStockActual, modificarProducto, eliminarProducto };

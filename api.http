@@ -27,7 +27,7 @@ POST http://localhost:1234/api/proveedores HTTP/1.1
 content-type: application/json
 
 {
-  "nombre": "Juan Perez",
+  "nombre": "Jose Rodriguez",
   "mail": "raulperez@prueba.com"
 }
 
@@ -41,30 +41,51 @@ GET http://localhost:1234/api/proveedores/1
 GET http://localhost:1234/api/proveedores/1/ordenes
 
 ### Obtener proveedores por nombre (ej: Raul)
-GET http://localhost:1234/api/proveedores?nombre=Raul
+GET http://localhost:1234/api/proveedores?nombre=Jos
+
+### Obtener proveedores por mail (ej: raulperez@prueba)
+GET http://localhost:1234/api/proveedores?mail=raulperez@prueba.com
 
 ### PRODUCTOS
 
 ### Obtener todos los productos
 GET http://localhost:1234/api/productos/
 
-### Obtener productos por nombre del producto (ej: Queso)
-GET http://localhost:1234/api/productos?nombre=Queso
-
 ### Crear un nuevo producto
 POST http://localhost:1234/api/productos HTTP/1.1
 content-type: application/json
 
 {
-  "nombre": "Queso",
-  "descripcion": "Queso de cabra",
-  "proveedorId": 1,
-  "stockActual": 10,
-  "categoriaId": 1
+  "nombre": "Pepsi",
+  "descripcion": "Gaseosa",
+  "proveedorId": 3,
+  "stockActual": 25,
+  "categoriaId": 2
 }
 
+### Obtener productos por nombre del producto (ej: Pan)
+GET http://localhost:1234/api/productos?nombre=Pan
+
+### Obtener productos por nombre del proveedor (ej: Jose)
+GET http://localhost:1234/api/productos/proveedor/Juan
+
+### Obtener productos por nombre de la categoria (ej: Tremendukis)
+GET http://localhost:1234/api/productos/categoria/Tremendukis
+
+### Obtener productos por stock actual (ej: 10)
+GET http://localhost:1234/api/productos/stock/10
+
 ### Modificar un producto existente (ej: 1)
-PUT http://localhost:1234/api/productos/1
+PUT http://localhost:1234/api/productos/3 HTTP/1.1
+content-type: application/json
+
+{
+  "nombre": "Coca Cola",
+  "descripcion": "Gaseosa!",
+  "proveedorId": 1,
+  "stockActual": 5,
+  "categoriaId": 1
+}
 
 ### Eliminar un producto existente (ej: 1)
 DELETE http://localhost:1234/api/productos/1

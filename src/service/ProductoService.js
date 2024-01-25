@@ -5,19 +5,14 @@ async function crearProducto(producto) {
   return await productoRepo.createProducto(producto);
 }
 
-async function listarProductos() {
+async function listarProductos(nombre) {
   // TODO: validar lógica de negocio
-  return await productoRepo.getProductos();
+  return await productoRepo.getProductos(nombre);
 }
 
 async function listarProductoPorId(id) {
   // TODO: validar lógica de negocio
   return await productoRepo.getProductoById(id);
-}
-
-async function listarProductoPorNombre(nombre) {
-  // TODO: validar lógica de negocio
-  return await productoRepo.getProductoByNombre(nombre);
 }
 
 async function listarProductoPorNombreCategoria(nombre) {
@@ -50,4 +45,4 @@ async function eliminarProducto(id) {
   return await productoRepo.deleteProducto(id);
 }
 
-export default { crearProducto, listarProductos, listarProductoPorId, listarProductoPorNombre, listarProductoPorNombreCategoria, listarProductoPorNombreProveedor, listarProductoPorStockActual, modificarProducto, eliminarProducto }
+export default { crearProducto, listarProductos, listarProductoPorId, listarProductoPorNombreCategoria, listarProductoPorNombreProveedor, listarProductoPorStockActual, modificarProducto, eliminarProducto }

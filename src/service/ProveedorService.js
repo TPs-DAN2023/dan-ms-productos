@@ -5,9 +5,9 @@ async function crearProveedor(proveedor) {
   return await proveedorRepo.createProveedor(proveedor);
 }
 
-async function listarProveedores() {
+async function listarProveedores(nombre) {
   // TODO: validar lógica de negocio
-  return await proveedorRepo.getProveedores();
+  return await proveedorRepo.getProveedores(nombre);
 }
 
 async function listarProveedorPorId(id) {
@@ -15,9 +15,4 @@ async function listarProveedorPorId(id) {
   return await proveedorRepo.getProveedorById(id);
 }
 
-async function listarProveedorPorNombre(nombre) {
-  // TODO: validar lógica de negocio
-  return await proveedorRepo.getProveedorByNombre(nombre);
-}
-
-export default { crearProveedor, listarProveedores, listarProveedorPorId, listarProveedorPorNombre }
+export default { crearProveedor, listarProveedores, listarProveedorPorId }

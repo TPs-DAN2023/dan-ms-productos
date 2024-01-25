@@ -11,8 +11,7 @@ const app = express();
 app.use(express.json());
 
 app.get('/', (req, res) => {
-  // res.status(200).send('<h1>Mi pagina</h1>')
-  res.json({ message: 'Hola mundo' })
+  res.json({ message: 'La etapa 2 del TP de Desarrollo de Aplicaciones en la Nube levantó correctamente.' })
 })
 
 // .use para usar un router
@@ -20,21 +19,6 @@ app.use('/api/productos', routerProductos);
 app.use('/api/categorias', routerCategorias);
 app.use('/api/proveedores', routerProveedores);
 app.use('/api/ordenes', routerOrdenesProvision);
-
-// app.use('/api/ordenes-provision-detalle', routerOrdenesProvisionDetalle);
-
-
-// app.get('/api/categorias', (req, res) => {
-//   res.json({ message: 'Hola categorias' })
-// })
-
-// app.get('/api/proveedores', (req, res) => {
-//   res.json({ message: 'Hola proveedores' })
-// })
-
-// app.get('/api/ordenes', (req, res) => {
-//   res.json({ message: 'Hola ordenes' })
-// })
 
 // la última a la que va a llegar
 app.use((req, res) => {

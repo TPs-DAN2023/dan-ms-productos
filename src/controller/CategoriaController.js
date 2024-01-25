@@ -19,7 +19,6 @@ async function crearCategoria(req, res) {
 async function listarCategorias(req, res) {
 
   try {
-    // const categories = await categoriaService.listarCategorias();
     const nombre = req.query.nombre;
     const categories = await categoriaService.listarCategorias(nombre);
     return res.status(200).json(categories);

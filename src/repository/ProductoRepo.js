@@ -19,9 +19,18 @@ async function createProducto(prod) {
   }
 }
 
-async function getProductos() {
+async function getProductos(nombre) {
   try {
-    return await prisma.producto.findMany();
+    const nameWhereClause = nombre ? { nombre: { contains: nombre } } : {};
+    return await prisma.producto.findMany(
+      {
+        where: nameWhereClause,
+        include: {
+          proveedor: true,
+          categoria: true
+        }
+      }
+    );
   } catch (error) {
     //TODO: hacer excepciones
     throw error;
@@ -33,19 +42,10 @@ async function getProductoById(id) {
     return await prisma.producto.findUnique({
       where: {
         id: parseInt(id)
-      }
-    });
-  } catch (error) {
-    //TODO: hacer excepciones
-    throw error;
-  }
-}
-
-async function getProductoByNombre(nombre) {
-  try {
-    return await prisma.producto.findUnique({
-      where: {
-        nombre: nombre
+      },
+      include: {
+        proveedor: true,
+        categoria: true
       }
     });
   } catch (error) {
@@ -61,6 +61,10 @@ async function getProductoByNombreCategoria(nombre) {
         categoria: {
           nombre: nombre
         }
+      },
+      include: {
+        proveedor: true,
+        categoria: true
       }
     });
   } catch (error) {
@@ -74,8 +78,12 @@ async function getProductoByNombreProveedor(nombre) {
     return await prisma.producto.findMany({
       where: {
         proveedor: {
-          nombre: nombre
+          nombre: { contains: nombre }
         }
+      },
+      include: {
+        proveedor: true,
+        categoria: true
       }
     });
   } catch (error) {
@@ -88,7 +96,11 @@ async function getProductoByStockActual(cantidad) {
   try {
     return await prisma.producto.findMany({
       where: {
-        stockActual: cantidad
+        stockActual: parseInt(cantidad)
+      },
+      include: {
+        proveedor: true,
+        categoria: true
       }
     });
   } catch (error) {
@@ -126,4 +138,4 @@ async function deleteProducto(id) {
   }
 }
 
-export default { createProducto, getProductos, getProductoById, getProductoByNombre, getProductoByNombreCategoria, getProductoByNombreProveedor, getProductoByStockActual, updateProducto, deleteProducto };
+export default { createProducto, getProductos, getProductoById, getProductoByNombreCategoria, getProductoByNombreProveedor, getProductoByStockActual, updateProducto, deleteProducto };
