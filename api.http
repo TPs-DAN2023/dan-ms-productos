@@ -8,8 +8,11 @@ POST http://localhost:1234/api/categorias HTTP/1.1
 content-type: application/json
 
 {
-  "nombre": "Cooler"
+  "nombre": "Tremendukis"
 }
+
+### Obtener todas las categorias
+GET http://localhost:1234/api/categorias/
 
 ### Obtener una unica categoria por id (ej: 1)
 GET http://localhost:1234/api/categorias/1
@@ -27,6 +30,9 @@ content-type: application/json
   "nombre": "Juan Perez",
   "mail": "raulperez@prueba.com"
 }
+
+### Obtener todos los proveedores
+GET http://localhost:1234/api/proveedores/
 
 ### Obtener un unico proveedor por id (ej: 1)
 GET http://localhost:1234/api/proveedores/1

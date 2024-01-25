@@ -7,6 +7,5 @@ const routerCategorias = Router();
 routerCategorias.post('/', controller.crearCategoria);
 routerCategorias.get('/', controller.listarCategorias);
 routerCategorias.get('/:id', controller.listarCategoriaPorId);
-routerCategorias.get('/:nombre', controller.listarCategoriaPorNombre);
 
 export default routerCategorias;

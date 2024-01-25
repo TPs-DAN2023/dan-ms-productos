@@ -5,9 +5,9 @@ async function crearCategoria(categoria) {
   return await categoriaRepo.createCategoria(categoria);
 }
 
-async function listarCategorias() {
+async function listarCategorias(nombre) {
   //TODO: validar lógica de negocio
-  return await categoriaRepo.getCategorias();
+  return await categoriaRepo.getCategorias(nombre);
 }
 
 async function listarCategoriaPorId(id) {
@@ -15,9 +15,4 @@ async function listarCategoriaPorId(id) {
   return await categoriaRepo.getCategoriaById(id);
 }
 
-async function listarCategoriaPorNombre(nombre) {
-  //TODO: validar lógica de negocio
-  return await categoriaRepo.getCategoriaByNombre(nombre);
-}
-
-export default { crearCategoria, listarCategorias, listarCategoriaPorId, listarCategoriaPorNombre }
+export default { crearCategoria, listarCategorias, listarCategoriaPorId }

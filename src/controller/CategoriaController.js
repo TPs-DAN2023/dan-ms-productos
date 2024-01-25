@@ -19,7 +19,9 @@ async function crearCategoria(req, res) {
 async function listarCategorias(req, res) {
 
   try {
-    const categories = await categoriaService.listarCategorias();
+    // const categories = await categoriaService.listarCategorias();
+    const nombre = req.query.nombre;
+    const categories = await categoriaService.listarCategorias(nombre);
     return res.status(200).json(categories);
   } catch (error) {
     return res.status(404).json({ error: error.message });
@@ -40,17 +42,4 @@ async function listarCategoriaPorId(req, res) {
 
 }
 
-async function listarCategoriaPorNombre(req, res) {
-
-  const nombre = req.params.nombre;
-
-  try {
-    const category = await categoriaService.listarCategoriaPorNombre(nombre);
-    return res.status(200).json(category);
-  } catch (error) {
-    return res.status(404).json({ error: error.message });
-  }
-
-}
-
-export default { crearCategoria, listarCategorias, listarCategoriaPorId, listarCategoriaPorNombre };
+export default { crearCategoria, listarCategorias, listarCategoriaPorId };

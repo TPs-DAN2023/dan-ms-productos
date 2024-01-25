@@ -15,9 +15,10 @@ async function createCategoria(category) {
   }
 }
 
-async function getCategorias() {
+async function getCategorias(nombre) {
   try {
-    return await prisma.categoria.findMany();
+    const whereClause = nombre ? { nombre } : {};
+    return await prisma.categoria.findMany({ where: whereClause });
   } catch (error) {
     //TODO: hacer excepciones
     throw error;
@@ -37,17 +38,4 @@ async function getCategoriaById(id) {
   }
 }
 
-async function getCategoriaByNombre(nombre) {
-  try {
-    return await prisma.categoria.findUnique({
-      where: {
-        nombre: nombre
-      }
-    });
-  } catch (error) {
-    //TODO: hacer excepciones
-    throw error;
-  }
-}
-
-export default { createCategoria, getCategorias, getCategoriaById, getCategoriaByNombre };
+export default { createCategoria, getCategorias, getCategoriaById };
