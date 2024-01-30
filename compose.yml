@@ -9,7 +9,7 @@ services:
     ports:
       - ${DB_PORT}:5432
     volumes:
-      - ./docker-data/db:/var/lib/postgres/data # Asegurarse que docker-data/db existe
+      - ./docker-data/db:/var/lib/postgresql/data
     networks:
       - dbnetwork
 
