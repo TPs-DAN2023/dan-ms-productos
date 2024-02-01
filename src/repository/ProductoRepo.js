@@ -14,7 +14,6 @@ async function create(prod) {
       }
     });
   } catch (error) {
-    //TODO: hacer excepciones (aca por ejemplo salta si idproveedor no existe por ej)
     throw error;
   }
 }
@@ -32,7 +31,6 @@ async function get(nombre) {
       }
     );
   } catch (error) {
-    //TODO: hacer excepciones
     throw error;
   }
 }
@@ -49,7 +47,6 @@ async function getById(id) {
       }
     });
   } catch (error) {
-    //TODO: hacer excepciones
     throw error;
   }
 }
@@ -68,7 +65,6 @@ async function getByCategoryName(nombre) {
       }
     });
   } catch (error) {
-    //TODO: hacer excepciones
     throw error;
   }
 }
@@ -87,7 +83,6 @@ async function getByProviderName(nombre) {
       }
     });
   } catch (error) {
-    //TODO: hacer excepciones
     throw error;
   }
 }
@@ -104,7 +99,6 @@ async function getByActualStock(cantidad) {
       }
     });
   } catch (error) {
-    //TODO: hacer excepciones
     throw error;
   }
 }
@@ -122,7 +116,6 @@ async function update(id, prod) {
       }
     });
   } catch (error) {
-    //TODO: hacer excepciones
     throw error;
   }
 }
@@ -136,7 +129,6 @@ async function updateStock(id, cantidad) {
       }
     });
   } catch (error) {
-    //TODO: hacer excepciones
     throw error;
   }
 }
@@ -148,7 +140,6 @@ async function deleteProd(id) {
       where: { id: parseInt(id) }
     });
   } catch (error) {
-    //TODO: hacer excepciones
     throw error;
   }
 }

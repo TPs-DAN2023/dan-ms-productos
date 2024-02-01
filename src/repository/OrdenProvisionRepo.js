@@ -13,7 +13,6 @@ async function create(supplyOrder) {
       }
     });
   } catch (error) {
-    //TODO: hacer excepciones (aca por ejemplo salta si idproveedor no existe por ej)
     throw error;
   }
 }
@@ -22,7 +21,6 @@ async function get() {
   try {
     return await prisma.ordenProvision.findMany();
   } catch (error) {
-    //TODO: hacer excepciones
     throw error;
   }
 }
@@ -35,7 +33,6 @@ async function getById(id) {
       }
     });
   } catch (error) {
-    //TODO: hacer excepciones
     throw error;
   }
 }
@@ -48,7 +45,6 @@ async function getByProviderId(id) {
       }
     });
   } catch (error) {
-    //TODO: hacer excepciones
     throw error;
   }
 }
@@ -64,7 +60,6 @@ async function getByDate(desde, hasta) {
       }
     });
   } catch (error) {
-    //TODO: hacer excepciones
     throw error;
   }
 }
@@ -83,7 +78,6 @@ async function update(id, supplyOrder) {
       }
     });
   } catch (error) {
-    //TODO: hacer excepciones
     throw error;
   }
 }
@@ -99,7 +93,6 @@ async function updateState(id, estado) {
       }
     });
   } catch (error) {
-    //TODO: hacer excepciones
     throw error;
   }
 }

@@ -14,7 +14,6 @@ async function create(supplyOrderDetails) {
       }
     });
   } catch (error) {
-    //TODO: hacer excepciones (aca por ejemplo salta si idproveedor no existe por ej)
     throw error;
   }
 }
@@ -23,7 +22,6 @@ async function get() {
   try {
     return await prisma.ordenProvisionDetalle.findMany();
   } catch (error) {
-    //TODO: hacer excepciones
     throw error;
   }
 }
@@ -36,13 +34,12 @@ async function getById(id) {
       }
     });
   } catch (error) {
-    //TODO: hacer excepciones
     throw error;
   }
 }
 
 // Puede ser interesante
-async function getByProvisionOrderId(id) {
+async function getBySupplyOrderId(id) {
   try {
     return await prisma.ordenProvisionDetalle.findMany({
       where: {
@@ -50,7 +47,6 @@ async function getByProvisionOrderId(id) {
       }
     });
   } catch (error) {
-    //TODO: hacer excepciones
     throw error;
   }
 }
@@ -64,9 +60,8 @@ async function getByProductId(id) {
       }
     });
   } catch (error) {
-    //TODO: hacer excepciones
     throw error;
   }
 }
 
-export default { create, get, getById, getByProvisionOrderId, getByProductId };
+export default { create, get, getById, getBySupplyOrderId, getByProductId };

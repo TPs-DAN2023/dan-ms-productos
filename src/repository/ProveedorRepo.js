@@ -11,7 +11,6 @@ async function create(provider) {
       },
     });
   } catch (error) {
-    //TODO: hacer excepciones
     throw error;
   }
 }
@@ -22,7 +21,6 @@ async function get(nombre, mail) {
     const mailWhereClause = mail ? { mail: { contains: mail } } : {};
     return await prisma.proveedor.findMany({ where: { AND: [nameWhereClause, mailWhereClause] } });
   } catch (error) {
-    //TODO: hacer excepciones
     throw error;
   }
 }
@@ -35,7 +33,6 @@ async function getById(id) {
       },
     });
   } catch (error) {
-    //TODO: hacer excepciones
     throw error;
   }
 }

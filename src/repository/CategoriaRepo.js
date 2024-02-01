@@ -10,7 +10,6 @@ async function create(category) {
       }
     });
   } catch (error) {
-    //TODO: hacer excepciones
     throw error;
   }
 }
@@ -20,7 +19,6 @@ async function get(nombre) {
     const whereClause = nombre ? { nombre } : {};
     return await prisma.categoria.findMany({ where: whereClause });
   } catch (error) {
-    //TODO: hacer excepciones
     throw error;
   }
 }
@@ -33,7 +31,6 @@ async function getById(id) {
       }
     });
   } catch (error) {
-    //TODO: hacer excepciones
     throw error;
   }
 }
