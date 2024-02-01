@@ -39,7 +39,7 @@ model Producto {
 model OrdenProvision {
   id              Int                     @id @default(autoincrement())
   fechaGeneracion DateTime                @default(now())
-  fechaRecepcion  DateTime
+  fechaRecepcion  DateTime?
   esCancelada     Boolean                 @default(false)
   proveedor       Proveedor               @relation("orden_provision_proveedor_fk", fields: [proveedorId], references: [id])
   proveedorId     Int
