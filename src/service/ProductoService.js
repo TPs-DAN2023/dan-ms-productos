@@ -55,21 +55,39 @@ async function getByActualStock(cantidad) {
   return await productoRepo.getByActualStock(cantidad);
 }
 
-async function update(id, producto) {
+async function update(id, newProduct) {
 
-  validateProductFields(producto);
+  const product = await productoRepo.getById(id);
 
-  return await productoRepo.update(id, producto);
+  if (!product)
+    throw new NotFoundException(`No existe el producto con el id especificado (id=${id})`);
+
+  validateProductFields(newProduct);
+
+  return await productoRepo.update(product, newProduct);
 }
 
 async function updateStock(id, cantidad) {
-  // TODO: validar lógica de negocio
-  return await productoRepo.updateStock(id, cantidad);
+
+  if (cantidad < 0)
+    throw new InvalidActualStockException('La cantidad de stock actual no puede ser negativa');
+
+  const product = await productoRepo.getById(id);
+
+  if (!product)
+    throw new NotFoundException(`No existe el producto con el id especificado (id=${id})`);
+
+  return await productoRepo.updateStock(product, cantidad);
 }
 
 async function deleteProd(id) {
-  // TODO: validar lógica de negocio
-  return await productoRepo.deleteProd(id);
+
+  const product = await productoRepo.getById(id);
+
+  if (!product)
+    throw new NotFoundException(`No existe el producto con el id especificado (id=${id})`);
+
+  return await productoRepo.deleteProd(product);
 }
 
 export default { create, get, getById, getByCategoryName, getByProviderName, getByActualStock, update, updateStock, deleteProd };

@@ -1,17 +1,7 @@
 import ordenProvisionService from '../service/OrdenProvisionService.js';
 
 async function create(req, res) {
-
   const supplyOrder = req.body;
-
-  if (!supplyOrder.fechaGeneracion || !supplyOrder.proveedorId)
-    return res.status(400).json({ error: 'Faltan datos', message: getMissingData(supplyOrder) });
-
-  if (supplyOrder.esCancelada)
-    return res.status(400).json({ error: 'No se puede crear una orden de provisión cancelada' });
-
-  if (supplyOrder.fechaRecepcion)
-    return res.status(400).json({ error: 'No se puede crear una orden de provisión ya recibida' });
 
   try {
     const supplyOrderResult = await ordenProvisionService.create(supplyOrder);

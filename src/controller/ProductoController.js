@@ -29,7 +29,9 @@ async function get(req, res) {
     const productos = await productoService.get(nombre);
     return res.status(200).json(productos);
   } catch (error) {
-    return res.status(404).json({ error: error.message });
+    const response = errorHandler(error, [NotFoundException]);
+
+    return res.status(response.status).json(response.body);
   }
 
 }
@@ -42,7 +44,9 @@ async function getById(req, res) {
     const producto = await productoService.getById(id);
     return res.status(200).json(producto);
   } catch (error) {
-    return res.status(404).json({ error: error.message });
+    const response = errorHandler(error, [NotFoundException]);
+
+    return res.status(response.status).json(response.body);
   }
 
 }

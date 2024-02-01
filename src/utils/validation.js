@@ -90,3 +90,31 @@ export default async function validateProductFields(product) {
   if (await isDuplicated(products, 'nombre', product.nombre))
     throw new DuplicatedFieldException('Ya existe un producto con ese nombre');
 }
+
+export default async function validateSupplyOrderFields(supplyOrder) {
+  if (!supplyOrder.fechaGeneracion || !supplyOrder.proveedorId)
+    throw new MissingDataException(`Faltan campos: ${getMissingData(supplyOrder, ['fechaGeneracion', 'proveedorId']).join(', ')}`);
+
+  if (supplyOrder.esCancelada)
+    throw new InvalidFieldException('No se puede crear una orden de provisión cancelada');
+
+  if (supplyOrder.fechaRecepcion != null)
+    throw new InvalidFieldException('No se puede crear una orden de provisión ya recibida');
+
+  const provider = await proveedorRepo.getById(supplyOrder.proveedorId);
+
+  if (!provider)
+    throw new NotFoundException(`No existe el proveedor con el id especificado (id=${supplyOrder.proveedorId})`);
+}
+
+export default async function validateSupplyOrderDetailFields(supplyOrderDetail) {
+  if (!supplyOrderDetail.productoId || !supplyOrderDetail.cantidad || !supplyOrderDetail.precio)
+    throw new MissingDataException(`Faltan campos: ${getMissingData(supplyOrderDetail, ['productoId', 'cantidad', 'precio']).join(', ')}`);
+
+  if (supplyOrderDetail.cantidad < 1 || supplyOrderDetail.cantidad > 1000)
+    throw new InvalidFieldException('La cantidad del producto debe encontrarse entre 1 y 1000');
+
+  if (supplyOrderDetail.precio < 0)
+    throw new InvalidFieldException('El precio del producto debe ser mayor que 0');
+}
+
