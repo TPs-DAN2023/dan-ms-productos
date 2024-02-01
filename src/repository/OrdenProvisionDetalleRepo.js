@@ -7,7 +7,7 @@ async function create(supplyOrderDetails) {
   try {
     return await prisma.ordenProvisionDetalle.create({
       data: {
-        proveedor: { connect: { id: supplyOrderDetails.ordenProvisionId } },
+        ordenProvision: { connect: { id: supplyOrderDetails.ordenProvisionId } },
         cantidad: supplyOrderDetails.cantidad,
         producto: { connect: { id: supplyOrderDetails.productoId } },
         precio: supplyOrderDetails.precio,
