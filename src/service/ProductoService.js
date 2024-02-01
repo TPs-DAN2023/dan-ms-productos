@@ -2,11 +2,18 @@ import productoRepo from "../repository/ProductoRepo.js"
 import NotFoundException from "../exception/NotFoundException.js";
 import MissingDataException from "../exception/MissingDataException.js";
 import { validateProductFields } from "../utils/validation.js";
+import InvalidFieldException from "../exception/InvalidFieldException.js";
+import proveedorRepo from "../repository/ProveedorRepo.js";
+import categoriaRepo from "../repository/CategoriaRepo.js";
 
 async function create(producto) {
-  validateProductFields(producto);
 
-  return await productoRepo.create(producto);
+  try {
+    await validateProductFields(producto);
+    return await productoRepo.create(producto);
+  } catch (error) {
+    throw error;
+  }
 }
 
 async function get(nombre) {
@@ -45,13 +52,13 @@ async function getByProviderName(nombre) {
   if (!provider)
     throw new NotFoundException(`No existe el proveedor con el nombre especificado (nombre=${nombre})`);
 
-  return await productoRepo.getByProvider(provider);
+  return await productoRepo.getByProvider(nombre);
 }
 
 async function getByActualStock(cantidad) {
 
   if (cantidad < 0)
-    throw new InvalidActualStockException('La cantidad de stock actual no puede ser negativa');
+    throw new InvalidFieldException('La cantidad de stock actual no puede ser negativa');
 
   return await productoRepo.getByActualStock(cantidad);
 }
@@ -63,22 +70,25 @@ async function update(id, newProduct) {
   if (!product)
     throw new NotFoundException(`No existe el producto con el id especificado (id=${id})`);
 
-  validateProductFields(newProduct);
-
-  return await productoRepo.update(product, newProduct);
+  try {
+    await validateProductFields(newProduct);
+    return await productoRepo.update(id, newProduct);
+  } catch (error) {
+    throw error;
+  }
 }
 
 async function updateStock(id, cantidad) {
 
   if (cantidad < 0)
-    throw new InvalidActualStockException('La cantidad de stock actual no puede ser negativa');
+    throw new InvalidFieldException('La cantidad de stock actual no puede ser negativa');
 
   const product = await productoRepo.getById(id);
 
   if (!product)
     throw new NotFoundException(`No existe el producto con el id especificado (id=${id})`);
 
-  return await productoRepo.updateStock(product, cantidad);
+  return await productoRepo.updateStock(id, cantidad);
 }
 
 async function deleteProd(id) {
@@ -88,7 +98,7 @@ async function deleteProd(id) {
   if (!product)
     throw new NotFoundException(`No existe el producto con el id especificado (id=${id})`);
 
-  return await productoRepo.deleteProd(product);
+  return await productoRepo.deleteProd(id);
 }
 
 export default { create, get, getById, getByCategoryName, getByProviderName, getByActualStock, update, updateStock, deleteProd };

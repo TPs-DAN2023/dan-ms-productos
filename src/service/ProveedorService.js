@@ -1,11 +1,15 @@
 import proveedorRepo from "../repository/ProveedorRepo.js";
 import { validateProviderFields } from "../utils/validation.js";
+import NotFoundException from "../exception/NotFoundException.js";
 
 async function create(proveedor) {
 
-  validateProviderFields(proveedor);
-
-  return await proveedorRepo.create(proveedor);
+  try {
+    await validateProviderFields(proveedor);
+    return await proveedorRepo.create(proveedor);
+  } catch (error) {
+    throw error;
+  }
 }
 
 async function get(nombre) {

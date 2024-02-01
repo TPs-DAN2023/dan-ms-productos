@@ -7,5 +7,6 @@ const routerProveedores = Router();
 routerProveedores.post('/', controller.create);
 routerProveedores.get('/', controller.get);
 routerProveedores.get('/:id', controller.getById);
+routerProveedores.get('/:id/ordenes', controller.getOrdersByProviderId);
 
 export default routerProveedores;
