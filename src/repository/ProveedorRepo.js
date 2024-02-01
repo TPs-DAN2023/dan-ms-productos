@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-async function createProveedor(provider) {
+async function create(provider) {
   try {
     return await prisma.proveedor.create({
       data: {
@@ -16,7 +16,7 @@ async function createProveedor(provider) {
   }
 }
 
-async function getProveedores(nombre, mail) {
+async function get(nombre, mail) {
   try {
     const nameWhereClause = nombre ? { nombre: { contains: nombre } } : {};
     const mailWhereClause = mail ? { mail: { contains: mail } } : {};
@@ -27,7 +27,7 @@ async function getProveedores(nombre, mail) {
   }
 }
 
-async function getProveedorById(id) {
+async function getById(id) {
   try {
     return await prisma.proveedor.findUnique({
       where: {
@@ -40,4 +40,4 @@ async function getProveedorById(id) {
   }
 }
 
-export default { createProveedor, getProveedores, getProveedorById };
+export default { create, get, getById };

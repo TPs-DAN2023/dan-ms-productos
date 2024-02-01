@@ -1,48 +1,48 @@
 import productoRepo from "../repository/ProductoRepo.js"
 
-async function crearProducto(producto) {
+async function create(producto) {
   //TODO: validar lógica de negocio
-  return await productoRepo.createProducto(producto);
+  return await productoRepo.create(producto);
 }
 
-async function listarProductos(nombre) {
+async function get(nombre) {
   // TODO: validar lógica de negocio
-  return await productoRepo.getProductos(nombre);
+  return await productoRepo.get(nombre);
 }
 
-async function listarProductoPorId(id) {
+async function getById(id) {
   // TODO: validar lógica de negocio
-  return await productoRepo.getProductoById(id);
+  return await productoRepo.getById(id);
 }
 
-async function listarProductoPorNombreCategoria(nombre) {
+async function getByCategoryName(nombre) {
   // TODO: validar lógica de negocio
-  return await productoRepo.getProductoByNombreCategoria(nombre);
+  return await productoRepo.getByCategoryName(nombre);
 }
 
-async function listarProductoPorNombreProveedor(nombre) {
+async function getByProviderName(nombre) {
   // TODO: validar lógica de negocio
-  return await productoRepo.getProductoByNombreProveedor(nombre);
+  return await productoRepo.getByProviderName(nombre);
 }
 
-async function listarProductoPorStockActual(cantidad) {
+async function getByActualStock(cantidad) {
   // TODO: validar lógica de negocio
-  return await productoRepo.getProductoByStockActual(cantidad);
+  return await productoRepo.getByActualStock(cantidad);
 }
 
-async function modificarProducto(id, producto) {
+async function update(id, producto) {
   // TODO: validar lógica de negocio
-  return await productoRepo.updateProducto(id, producto);
+  return await productoRepo.update(id, producto);
 }
 
-async function modificarStockDeProducto(id, cantidad) {
+async function updateStock(id, cantidad) {
   // TODO: validar lógica de negocio
-  return await productoRepo.updateStockDeProducto(id, cantidad);
+  return await productoRepo.updateStock(id, cantidad);
 }
 
-async function eliminarProducto(id) {
+async function deleteProd(id) {
   // TODO: validar lógica de negocio
-  return await productoRepo.deleteProducto(id);
+  return await productoRepo.deleteProd(id);
 }
 
-export default { crearProducto, listarProductos, listarProductoPorId, listarProductoPorNombreCategoria, listarProductoPorNombreProveedor, listarProductoPorStockActual, modificarProducto, eliminarProducto }
+export default { create, get, getById, getByCategoryName, getByProviderName, getByActualStock, update, updateStock, deleteProd };

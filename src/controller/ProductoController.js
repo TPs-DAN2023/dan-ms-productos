@@ -1,15 +1,15 @@
 import productoService from '../service/ProductoService.js';
 
-async function crearProducto(req, res) {
+async function create(req, res) {
 
   const prod = req.body;
 
   // puede haber productos sin proveedor o categoria?
   if (!prod.nombre || !prod.descripcion || !prod.proveedorId || !prod.stockActual || !prod.categoriaId)
-    return res.status(400).json({ error: 'Faltan datos', missingData: getMissingData(prod) });
+    return res.status(400).json({ error: 'Faltan datos', message: getMissingData(prod) });
 
   try {
-    const producto = await productoService.crearProducto(prod);
+    const producto = await productoService.create(prod);
     return res.status(201).json(producto)
   } catch (error) {
     return res.status(404).json({ error: error.message });
@@ -27,11 +27,11 @@ function getMissingData(prod) {
   return missingData;
 }
 
-async function listarProductos(req, res) {
+async function get(req, res) {
 
   try {
     const nombre = req.query.nombre;
-    const productos = await productoService.listarProductos(nombre);
+    const productos = await productoService.get(nombre);
     return res.status(200).json(productos);
   } catch (error) {
     return res.status(404).json({ error: error.message });
@@ -39,12 +39,12 @@ async function listarProductos(req, res) {
 
 }
 
-async function listarProductoPorId(req, res) {
+async function getById(req, res) {
 
   const id = req.params.id;
 
   try {
-    const producto = await productoService.listarProductoPorId(id);
+    const producto = await productoService.getById(id);
     return res.status(200).json(producto);
   } catch (error) {
     return res.status(404).json({ error: error.message });
@@ -52,12 +52,12 @@ async function listarProductoPorId(req, res) {
 
 }
 
-async function listarProductoPorNombreCategoria(req, res) {
+async function getByCategoryName(req, res) {
 
   const nombre = req.params.nombre;
 
   try {
-    const producto = await productoService.listarProductoPorNombreCategoria(nombre);
+    const producto = await productoService.getByCategoryName(nombre);
     return res.status(200).json(producto);
   } catch (error) {
     return res.status(404).json({ error: error.message });
@@ -65,12 +65,12 @@ async function listarProductoPorNombreCategoria(req, res) {
 
 }
 
-async function listarProductoPorNombreProveedor(req, res) {
+async function getByProviderName(req, res) {
 
   const nombre = req.params.nombre;
 
   try {
-    const producto = await productoService.listarProductoPorNombreProveedor(nombre);
+    const producto = await productoService.getByProviderName(nombre);
     return res.status(200).json(producto);
   } catch (error) {
     return res.status(404).json({ error: error.message });
@@ -78,12 +78,12 @@ async function listarProductoPorNombreProveedor(req, res) {
 
 }
 
-async function listarProductoPorStockActual(req, res) {
+async function getByActualStock(req, res) {
 
   const cantidad = req.params.cantidad;
 
   try {
-    const producto = await productoService.listarProductoPorStockActual(cantidad);
+    const producto = await productoService.getByActualStock(cantidad);
     return res.status(200).json(producto);
   } catch (error) {
     return res.status(404).json({ error: error.message });
@@ -91,31 +91,42 @@ async function listarProductoPorStockActual(req, res) {
 
 }
 
-async function modificarProducto(req, res) {
+async function update(req, res) {
 
   const id = req.params.id;
   const prod = req.body;
 
   try {
-    const producto = await productoService.modificarProducto(id, prod);
+    const producto = await productoService.update(id, prod);
     return res.status(200).json(producto);
   } catch (error) {
     return res.status(404).json({ error: error.message });
   }
-
 }
 
-async function eliminarProducto(req, res) {
+async function updateStock(req, res) {
+
+  const id = req.params.id;
+  const cantidad = req.params.cantidad;
+
+  try {
+    const producto = await productoService.updateStock(id, cantidad);
+    return res.status(200).json(producto);
+  } catch (error) {
+    return res.status(404).json({ error: error.message });
+  }
+}
+
+async function deleteProd(req, res) {
 
   const id = req.params.id;
 
   try {
-    const producto = await productoService.eliminarProducto(id);
+    const producto = await productoService.deleteProd(id);
     return res.status(200).json(producto);
   } catch (error) {
     return res.status(404).json({ error: error.message });
   }
-
 }
 
-export default { crearProducto, listarProductos, listarProductoPorId, listarProductoPorNombreCategoria, listarProductoPorNombreProveedor, listarProductoPorStockActual, modificarProducto, eliminarProducto };
+export default { create, get, getById, getByCategoryName, getByProviderName, getByActualStock, update, updateStock, deleteProd };

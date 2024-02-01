@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient();
 
-async function createOrdenProvisionDetalle(supplyOrderDetails) {
+async function create(supplyOrderDetails) {
 
   try {
     return await prisma.ordenProvisionDetalle.create({
@@ -19,7 +19,7 @@ async function createOrdenProvisionDetalle(supplyOrderDetails) {
   }
 }
 
-async function getOrdenesProvisionDetalle() {
+async function get() {
   try {
     return await prisma.ordenProvisionDetalle.findMany();
   } catch (error) {
@@ -28,7 +28,7 @@ async function getOrdenesProvisionDetalle() {
   }
 }
 
-async function getOrdenProvisionDetalleById(id) {
+async function getById(id) {
   try {
     return await prisma.ordenProvisionDetalle.findUnique({
       where: {
@@ -42,7 +42,7 @@ async function getOrdenProvisionDetalleById(id) {
 }
 
 // Puede ser interesante
-async function getOrdenProvisionDetalleByOrdenProvisionId(id) {
+async function getByProvisionOrderId(id) {
   try {
     return await prisma.ordenProvisionDetalle.findMany({
       where: {
@@ -56,7 +56,7 @@ async function getOrdenProvisionDetalleByOrdenProvisionId(id) {
 }
 
 // Puede ser interesante
-async function getOrdenProvisionDetalleByProductoId(id) {
+async function getByProductId(id) {
   try {
     return await prisma.ordenProvisionDetalle.findMany({
       where: {
@@ -69,4 +69,4 @@ async function getOrdenProvisionDetalleByProductoId(id) {
   }
 }
 
-export default { createOrdenProvisionDetalle, getOrdenesProvisionDetalle, getOrdenProvisionDetalleById, getOrdenProvisionDetalleByOrdenProvisionId, getOrdenProvisionDetalleByProductoId };
+export default { create, get, getById, getByProvisionOrderId, getByProductId };

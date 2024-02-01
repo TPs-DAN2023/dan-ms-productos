@@ -1,11 +1,11 @@
 import ordenProvisionDetalleService from '../service/OrdenProvisionDetalleService.js';
 
-async function crearOrdenProvisionDetalle(req, res) {
+async function create(req, res) {
 
   const supplyOrderDetails = req.body;
 
   if (!supplyOrderDetails.ordenProvisionId || !supplyOrderDetails.cantidad || !supplyOrderDetails.productoId || !supplyOrderDetails.precio)
-    return res.status(400).json({ error: 'Faltan datos', missingData: getMissingData(supplyOrderDetails) });
+    return res.status(400).json({ error: 'Faltan datos', message: getMissingData(supplyOrderDetails) });
 
   if (supplyOrderDetails.cantidad < 1 || supplyOrderDetails.cantidad > 1000)
     return res.status(400).json({ error: 'La cantidad del producto debe encontrarse entre 1 y 1000' });
@@ -14,7 +14,7 @@ async function crearOrdenProvisionDetalle(req, res) {
     return res.status(400).json({ error: 'El precio del producto debe ser mayor que 0' });
 
   try {
-    const supplyOrderDetailsResult = await ordenProvisionDetalleService.crearOrdenProvisionDetalle(supplyOrderDetails);
+    const supplyOrderDetailsResult = await ordenProvisionDetalleService.create(supplyOrderDetails);
     return res.status(201).json(supplyOrderDetailsResult)
   } catch (error) {
     return res.status(404).json({ error: error.message });
@@ -31,4 +31,4 @@ function getMissingData(supplyOrderDetails) {
   return missingData;
 }
 
-export default { crearOrdenProvisionDetalle };
+export default { create };

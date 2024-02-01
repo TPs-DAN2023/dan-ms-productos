@@ -1,10 +1,10 @@
 import ordenProvisionDetalleRepo from "../repository/OrdenProvisionDetalleRepo.js"
 
-async function crearOrdenProvisionDetalle(ordenProvisionDetalle) {
+async function create(ordenProvisionDetalle) {
 
   //TODO: validar lógica de negocio
-  return await ordenProvisionDetalleRepo.createOrdenProvisionDetalle(ordenProvisionDetalle);
+  return await ordenProvisionDetalleRepo.create(ordenProvisionDetalle);
 
 }
 
-export default { crearOrdenProvisionDetalle }
+export default { create }

@@ -1,39 +1,39 @@
 import ordenProvisionRepo from "../repository/OrdenProvisionRepo.js"
 
-async function crearOrdenProvision(ordenProvision) {
+async function create(ordenProvision) {
   //TODO: validar lógica de negocio
-  return await ordenProvisionRepo.createOrdenProvision(ordenProvision);
+  return await ordenProvisionRepo.create(ordenProvision);
 }
 
-async function listarOrdenesProvision() {
+async function get() {
   // TODO: validar lógica de negocio
-  return await ordenProvisionRepo.getOrdenesProvision();
+  return await ordenProvisionRepo.get();
 }
 
-async function listarOrdenProvisionPorId(id) {
+async function getById(id) {
   // TODO: validar lógica de negocio
-  return await ordenProvisionRepo.getOrdenProvisionById(id);
+  return await ordenProvisionRepo.getById(id);
 }
 
-async function listarOrdenProvisionPorIdProveedor(id) {
+async function getByProviderId(id) {
   // TODO: validar lógica de negocio
-  return await ordenProvisionRepo.getOrdenProvisionByProveedorId(id);
+  return await ordenProvisionRepo.getByProviderId(id);
 }
 
 // TODO: Validar si es correcto
-async function listarOrdenProvisionPorFecha(desde, hasta) {
+async function getByDate(desde, hasta) {
   // TODO: validar lógica de negocio
-  return await ordenProvisionRepo.getOrdenProvisionByFecha(desde, hasta);
+  return await ordenProvisionRepo.getByDate(desde, hasta);
 }
 
-async function modificarOrdenProvision(id, ordenProvision) {
+async function update(id, ordenProvision) {
   // TODO: validar lógica de negocio
-  return await ordenProvisionRepo.updateOrdenProvision(id, ordenProvision);
+  return await ordenProvisionRepo.update(id, ordenProvision);
 }
 
-async function cambiarEstadoOrdenProvision(id, estado) {
+async function updateState(id, estado) {
   // TODO: validar lógica de negocio
-  return await ordenProvisionRepo.updateEstadoOrdenProvision(id, estado);
+  return await ordenProvisionRepo.updateState(id, estado);
 }
 
-export default { crearOrdenProvision, listarOrdenesProvision, listarOrdenProvisionPorId, listarOrdenProvisionPorIdProveedor, listarOrdenProvisionPorFecha, modificarOrdenProvision, cambiarEstadoOrdenProvision };
+export default { create, get, getById, getByProviderId, getByDate, update, updateState };

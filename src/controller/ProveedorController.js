@@ -1,51 +1,53 @@
 import proveedorService from '../service/ProveedorService.js';
+import DuplicatedNameException from '../exception/DuplicatedFieldException.js';
+import errorHandler from '../utils/errorHandler.js';
+import InvalidMailException from '../exception/InvalidMailException.js';
+import InvalidNameException from '../exception/InvalidNameException.js';
+import MissingDataException from '../exception/MissingDataException.js';
+import NotFoundException from '../exception/NotFoundException.js';
 
-async function crearProveedor(req, res) {
+async function create(req, res) {
 
   const provider = req.body;
 
-  if (!provider.nombre || !provider.mail)
-    return res.status(400).json({ error: 'Faltan datos', missingData: getMissingData(provider) });
-
   try {
-    const providerResult = await proveedorService.crearProveedor(provider);
+    const providerResult = await proveedorService.create(provider);
     return res.status(201).json(providerResult)
   } catch (error) {
-    return res.status(404).json({ error: error.message });
+    const response = errorHandler(error, [DuplicatedNameException, InvalidNameException, InvalidMailException, MissingDataException]);
+
+    return res.status(response.status).json(response.body);
   }
 
 };
 
-function getMissingData(provider) {
-  let missingData = [];
-  if (!provider.nombre) missingData.push('nombre');
-  if (!provider.mail) missingData.push('mail');
-  return missingData;
-}
-
-async function listarProveedores(req, res) {
+async function get(req, res) {
 
   try {
     const nombre = req.query.nombre;
-    const providers = await proveedorService.listarProveedores(nombre);
+    const providers = await proveedorService.get(nombre);
     return res.status(200).json(providers);
   } catch (error) {
-    return res.status(404).json({ error: error.message });
+    const response = errorHandler(error, []);
+
+    return res.status(response.status).json(response.body);
   }
 
 }
 
-async function listarProveedorPorId(req, res) {
+async function getById(req, res) {
 
   const id = req.params.id;
 
   try {
-    const provider = await proveedorService.listarProveedorPorId(id);
+    const provider = await proveedorService.getById(id);
     return res.status(200).json(provider);
   } catch (error) {
-    return res.status(404).json({ error: error.message });
+    const response = errorHandler(error, [NotFoundException]);
+
+    return res.status(response.status).json(response.body);
   }
 
 }
 
-export default { crearProveedor, listarProveedores, listarProveedorPorId };
+export default { create, get, getById };

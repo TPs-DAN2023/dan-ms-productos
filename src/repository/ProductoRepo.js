@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient();
 
-async function createProducto(prod) {
+async function create(prod) {
   try {
     return await prisma.producto.create({
       data: {
@@ -19,7 +19,7 @@ async function createProducto(prod) {
   }
 }
 
-async function getProductos(nombre) {
+async function get(nombre) {
   try {
     const nameWhereClause = nombre ? { nombre: { contains: nombre } } : {};
     return await prisma.producto.findMany(
@@ -37,7 +37,7 @@ async function getProductos(nombre) {
   }
 }
 
-async function getProductoById(id) {
+async function getById(id) {
   try {
     return await prisma.producto.findUnique({
       where: {
@@ -54,7 +54,7 @@ async function getProductoById(id) {
   }
 }
 
-async function getProductoByNombreCategoria(nombre) {
+async function getByCategoryName(nombre) {
   try {
     return await prisma.producto.findMany({
       where: {
@@ -73,7 +73,7 @@ async function getProductoByNombreCategoria(nombre) {
   }
 }
 
-async function getProductoByNombreProveedor(nombre) {
+async function getByProviderName(nombre) {
   try {
     return await prisma.producto.findMany({
       where: {
@@ -92,7 +92,7 @@ async function getProductoByNombreProveedor(nombre) {
   }
 }
 
-async function getProductoByStockActual(cantidad) {
+async function getByActualStock(cantidad) {
   try {
     return await prisma.producto.findMany({
       where: {
@@ -109,7 +109,7 @@ async function getProductoByStockActual(cantidad) {
   }
 }
 
-async function updateProducto(id, prod) {
+async function update(id, prod) {
   try {
     return await prisma.producto.update({
       where: { id: parseInt(id) },
@@ -127,7 +127,22 @@ async function updateProducto(id, prod) {
   }
 }
 
-async function deleteProducto(id) {
+async function updateStock(id, cantidad) {
+  try {
+    return await prisma.producto.update({
+      where: { id: parseInt(id) },
+      data: {
+        stockActual: cantidad
+      }
+    });
+  } catch (error) {
+    //TODO: hacer excepciones
+    throw error;
+  }
+}
+
+// 'delete' sola es palabra reservada
+async function deleteProd(id) {
   try {
     return await prisma.producto.delete({
       where: { id: parseInt(id) }
@@ -138,4 +153,4 @@ async function deleteProducto(id) {
   }
 }
 
-export default { createProducto, getProductos, getProductoById, getProductoByNombreCategoria, getProductoByNombreProveedor, getProductoByStockActual, updateProducto, deleteProducto };
+export default { create, get, getById, getByCategoryName, getByProviderName, getByActualStock, update, updateStock, deleteProd };

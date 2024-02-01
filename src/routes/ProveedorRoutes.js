@@ -4,8 +4,8 @@ import controller from "../controller/ProveedorController.js";
 const routerProveedores = Router();
 
 // Crear un proveedor
-routerProveedores.post('/', controller.crearProveedor);
-routerProveedores.get('/', controller.listarProveedores);
-routerProveedores.get('/:id', controller.listarProveedorPorId);
+routerProveedores.post('/', controller.create);
+routerProveedores.get('/', controller.get);
+routerProveedores.get('/:id', controller.getById);
 
 export default routerProveedores;

@@ -1,16 +1,16 @@
 import categoriaService from '../service/CategoriaService.js';
-import MissingDataException from '../exception/MissingDataException.js';
-import InvalidNameException from '../exception/InvalidNameException.js';
-import DuplicatedNameException from '../exception/DuplicatedNameException.js';
+import DuplicatedNameException from '../exception/DuplicatedFieldException.js';
 import errorHandler from '../utils/errorHandler.js';
+import InvalidNameException from '../exception/InvalidNameException.js';
+import MissingDataException from '../exception/MissingDataException.js';
 import NotFoundException from '../exception/NotFoundException.js';
 
-async function crearCategoria(req, res) {
+async function create(req, res) {
 
   const category = req.body;
 
   try {
-    const categoryResult = await categoriaService.crearCategoria(category);
+    const categoryResult = await categoriaService.create(category);
     return res.status(201).json(categoryResult)
   } catch (error) {
     const response = errorHandler(error, [DuplicatedNameException, InvalidNameException, MissingDataException]);
@@ -19,11 +19,11 @@ async function crearCategoria(req, res) {
   }
 };
 
-async function listarCategorias(req, res) {
+async function get(req, res) {
 
   try {
     const nombre = req.query.nombre;
-    const categories = await categoriaService.listarCategorias(nombre);
+    const categories = await categoriaService.get(nombre);
     return res.status(200).json(categories);
   } catch (error) {
     const response = errorHandler(error, []);
@@ -33,12 +33,12 @@ async function listarCategorias(req, res) {
 
 }
 
-async function listarCategoriaPorId(req, res) {
+async function getById(req, res) {
 
   const id = req.params.id;
 
   try {
-    const category = await categoriaService.listarCategoriaPorId(id);
+    const category = await categoriaService.getById(id);
     return res.status(200).json(category);
   } catch (error) {
     const response = errorHandler(error, [NotFoundException]);
@@ -48,4 +48,4 @@ async function listarCategoriaPorId(req, res) {
 
 }
 
-export default { crearCategoria, listarCategorias, listarCategoriaPorId };
+export default { create, get, getById };

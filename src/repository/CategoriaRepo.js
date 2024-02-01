@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient();
 
-async function createCategoria(category) {
+async function create(category) {
   try {
     return await prisma.categoria.create({
       data: {
@@ -15,7 +15,7 @@ async function createCategoria(category) {
   }
 }
 
-async function getCategorias(nombre) {
+async function get(nombre) {
   try {
     const whereClause = nombre ? { nombre } : {};
     return await prisma.categoria.findMany({ where: whereClause });
@@ -25,7 +25,7 @@ async function getCategorias(nombre) {
   }
 }
 
-async function getCategoriaById(id) {
+async function getById(id) {
   try {
     return await prisma.categoria.findUnique({
       where: {
@@ -38,4 +38,4 @@ async function getCategoriaById(id) {
   }
 }
 
-export default { createCategoria, getCategorias, getCategoriaById };
+export default { create, get, getById };

@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient();
 
-async function createOrdenProvision(supplyOrder) {
+async function create(supplyOrder) {
   try {
     return await prisma.ordenProvision.create({
       data: {
@@ -18,7 +18,7 @@ async function createOrdenProvision(supplyOrder) {
   }
 }
 
-async function getOrdenesProvision() {
+async function get() {
   try {
     return await prisma.ordenProvision.findMany();
   } catch (error) {
@@ -27,7 +27,7 @@ async function getOrdenesProvision() {
   }
 }
 
-async function getOrdenProvisionById(id) {
+async function getById(id) {
   try {
     return await prisma.ordenProvision.findUnique({
       where: {
@@ -40,7 +40,7 @@ async function getOrdenProvisionById(id) {
   }
 }
 
-async function getOrdenProvisionByProveedorId(id) {
+async function getByProviderId(id) {
   try {
     return await prisma.ordenProvision.findMany({
       where: {
@@ -53,7 +53,7 @@ async function getOrdenProvisionByProveedorId(id) {
   }
 }
 
-async function getOrdenProvisionByFecha(desde, hasta) {
+async function getByDate(desde, hasta) {
   try {
     return await prisma.ordenProvision.findMany({
       where: {
@@ -69,7 +69,7 @@ async function getOrdenProvisionByFecha(desde, hasta) {
   }
 }
 
-async function updateOrdenProvision(id, supplyOrder) {
+async function update(id, supplyOrder) {
   try {
     return await prisma.ordenProvision.update({
       where: {
@@ -88,7 +88,7 @@ async function updateOrdenProvision(id, supplyOrder) {
   }
 }
 
-async function updateOrdenProvisionEstado(id, estado) {
+async function updateState(id, estado) {
   try {
     return await prisma.ordenProvision.update({
       where: {
@@ -104,4 +104,4 @@ async function updateOrdenProvisionEstado(id, estado) {
   }
 }
 
-export default { createOrdenProvision, getOrdenesProvision, getOrdenProvisionById, getOrdenProvisionByProveedorId, getOrdenProvisionByFecha, updateOrdenProvision, updateOrdenProvisionEstado };
+export default { create, get, getById, getByProviderId, getByDate, update, updateState };
