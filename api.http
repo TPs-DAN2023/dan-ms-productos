@@ -3,6 +3,9 @@ GET http://localhost:1234/
 
 ### CATEGORIAS
 
+### Obtener todas las categorias
+GET http://localhost:1234/api/categorias/
+
 ### Crear una nueva categoria
 POST http://localhost:1234/api/categorias HTTP/1.1
 content-type: application/json
@@ -11,28 +14,26 @@ content-type: application/json
   "nombre": "Categoria3"
 }
 
-### Obtener todas las categorias
-GET http://localhost:1234/api/categorias/
-
 ### Obtener una unica categoria por id (ej: 1)
-GET http://localhost:1234/api/categorias/1
+GET http://localhost:1234/api/categorias/18
 
 ### Obtener categorias por nombre (ej: Cool)
-GET http://localhost:1234/api/categorias?nombre=Cool
+GET http://localhost:1234/api/categorias?nombre=Categoria3
 
 ### PROVEEDORES
 
 ### Crear un nuevo proveedor
+
+### Obtener todos los proveedores
+GET http://localhost:1234/api/proveedores/
+
 POST http://localhost:1234/api/proveedores HTTP/1.1
 content-type: application/json
 
 {
-  "nombre": "Jose Rodriguez",
-  "mail": "joserodriguez@gmail.com"
+  "nombre": "Jose Gimene2z",
+  "mail": "josegimene2z@gmail.com"
 }
-
-### Obtener todos los proveedores
-GET http://localhost:1234/api/proveedores/
 
 ### Obtener un unico proveedor por id (ej: 1)
 GET http://localhost:1234/api/proveedores/1
@@ -40,11 +41,8 @@ GET http://localhost:1234/api/proveedores/1
 ### Obtener todas las ordenes de un proveedor por id (ej: 1)
 GET http://localhost:1234/api/proveedores/1/ordenes
 
-### Obtener proveedores por nombre (ej: Raul)
-GET http://localhost:1234/api/proveedores?nombre=Jos
-
-### Obtener proveedores por mail (ej: raulperez@prueba)
-GET http://localhost:1234/api/proveedores?mail=raulperez@prueba.com
+### Obtener proveedores por nombre (ej: Jose)
+GET http://localhost:1234/api/proveedores?nombre=Jose
 
 ### PRODUCTOS
 
@@ -56,15 +54,15 @@ POST http://localhost:1234/api/productos HTTP/1.1
 content-type: application/json
 
 {
-  "nombre": "Pepsi",
-  "descripcion": "Gaseosa",
-  "proveedorId": 1,
-  "stockActual": 25,
-  "categoriaId": 1
+  "nombre": "Queso de cabra",
+  "descripcion": "Un rico queso",
+  "proveedorId": 3,
+  "stockActual": 10,
+  "categoriaId": 18
 }
 
-### Obtener productos por nombre del producto (ej: Pan)
-GET http://localhost:1234/api/productos?nombre=Pan
+### Obtener productos por nombre del producto (ej: Pepsi)
+GET http://localhost:1234/api/productos?nombre=Pepsi
 
 ### Obtener productos por nombre del proveedor (ej: Jose)
 GET http://localhost:1234/api/productos/proveedor/Jose
@@ -87,19 +85,13 @@ content-type: application/json
   "categoriaId": 1
 }
 
-### Eliminar un producto existente (ej: 1)
-DELETE http://localhost:1234/api/productos/1
+### Eliminar un producto existente (ej: 2)
+DELETE http://localhost:1234/api/productos/2
 
 ### ORDENES
 
-### Obtener una unica orden por id (ej: 1)
-GET http://localhost:1234/api/ordenes/1
-
-### Obtener ordenes por fecha minima de generacion (ej: date?)
-GET http://localhost:1234/api/ordenes?minFechaGen= date?
-
-### Obtener todos las ordenes de un unico proveedor por id (ej: 1)
-GET http://localhost:1234/api/ordenes/proveedor/1
+### Obtener todas las ordenes
+GET http://localhost:1234/api/ordenes/
 
 ### Crear una nueva orden
 POST http://localhost:1234/api/ordenes HTTP/1.1
@@ -113,16 +105,25 @@ content-type: application/json
   "detalles": [
     {
       "productoId": 1,
-      "cantidad": 10,
+      "cantidad": 1,
       "precio": 100
     },
     {
-      "productoId": 2,
-      "cantidad": 5,
+      "productoId": 5,
+      "cantidad": 1,
       "precio": 200
     }
   ]
 }
+
+### Obtener una unica orden por id (ej: 1)
+GET http://localhost:1234/api/ordenes/1
+
+### Obtener ordenes por fecha minima de generacion (ej: date?)
+GET http://localhost:1234/api/ordenes?minFechaGen= date?
+
+### Obtener todos las ordenes de un unico proveedor por id (ej: 1)
+GET http://localhost:1234/api/ordenes/proveedor/1
 
 ### Modificar una orden existente (ej: 1)
 PUT http://localhost:1234/api/ordenes/1 HTTP/1.1
@@ -147,5 +148,8 @@ content-type: application/json
   ]
 }
 
-### Modificar solo un campo de una orden existente (ej: 1)
-PATCH http://localhost:1234/api/ordenes/1
+### Marcar una orden como cancelada (ej: 1)
+PATCH http://localhost:1234/api/ordenes/1/cancelada
+
+### Marcar una orden como recibida (ej: 2)
+PATCH http://localhost:1234/api/ordenes/2/recibida
