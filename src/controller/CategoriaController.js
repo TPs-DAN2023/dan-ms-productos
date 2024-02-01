@@ -1,19 +1,22 @@
 import categoriaService from '../service/CategoriaService.js';
+import MissingDataException from '../exception/MissingDataException.js';
+import InvalidNameException from '../exception/InvalidNameException.js';
+import DuplicatedNameException from '../exception/DuplicatedNameException.js';
+import errorHandler from '../utils/errorHandler.js';
+import NotFoundException from '../exception/NotFoundException.js';
 
 async function crearCategoria(req, res) {
 
   const category = req.body;
 
-  if (!category.nombre)
-    return res.status(400).json({ error: 'Faltan datos', missingData: 'nombre' });
-
   try {
     const categoryResult = await categoriaService.crearCategoria(category);
     return res.status(201).json(categoryResult)
   } catch (error) {
-    return res.status(404).json({ error: error.message });
-  }
+    const response = errorHandler(error, [DuplicatedNameException, InvalidNameException, MissingDataException]);
 
+    return res.status(response.status).json(response.body);
+  }
 };
 
 async function listarCategorias(req, res) {
@@ -23,7 +26,9 @@ async function listarCategorias(req, res) {
     const categories = await categoriaService.listarCategorias(nombre);
     return res.status(200).json(categories);
   } catch (error) {
-    return res.status(404).json({ error: error.message });
+    const response = errorHandler(error, []);
+
+    return res.status(response.status).json(response.body);
   }
 
 }
@@ -36,7 +41,9 @@ async function listarCategoriaPorId(req, res) {
     const category = await categoriaService.listarCategoriaPorId(id);
     return res.status(200).json(category);
   } catch (error) {
-    return res.status(404).json({ error: error.message });
+    const response = errorHandler(error, [NotFoundException]);
+
+    return res.status(response.status).json(response.body);
   }
 
 }
