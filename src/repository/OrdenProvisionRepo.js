@@ -19,7 +19,14 @@ async function create(supplyOrder) {
 
 async function get() {
   try {
-    return await prisma.ordenProvision.findMany();
+    return await prisma.ordenProvision.findMany(
+      {
+        include: {
+          proveedor: true,
+          detalles: true
+        }
+      }
+    );
   } catch (error) {
     throw error;
   }
@@ -75,6 +82,36 @@ async function update(id, supplyOrder) {
         fechaRecepcion: supplyOrder.fechaRecepcion,
         esCancelada: supplyOrder.esCancelada,
         proveedor: { connect: { id: supplyOrder.proveedorId } },
+      }
+    });
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function cancelOorder(id) {
+  try {
+    return await prisma.ordenProvision.update({
+      where: {
+        id: parseInt(id)
+      },
+      data: {
+        esCancelada: true
+      }
+    });
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function receiptOrder(id) {
+  try {
+    return await prisma.ordenProvision.update({
+      where: {
+        id: parseInt(id)
+      },
+      data: {
+        fechaRecepcion: new Date()
       }
     });
   } catch (error) {
