@@ -46,7 +46,20 @@ async function getById(req, res) {
 
     return res.status(response.status).json(response.body);
   }
-
 }
 
-export default { create, get, getById };
+async function getOrdersByProviderId(req, res) {
+
+  const id = req.params.id;
+
+  try {
+    const orders = await proveedorService.getOrdersByProviderId(id);
+    return res.status(200).json(orders);
+  } catch (error) {
+    const response = errorHandler(error, [NotFoundException, MissingDataException]);
+
+    return res.status(response.status).json(response.body);
+  }
+}
+
+export default { create, get, getById, getOrdersByProviderId };

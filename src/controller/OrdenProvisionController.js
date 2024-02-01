@@ -1,4 +1,10 @@
 import ordenProvisionService from '../service/OrdenProvisionService.js';
+import productoService from '../service/ProductoService.js';
+import DuplicatedNameException from '../exception/DuplicatedFieldException.js';
+import errorHandler from '../utils/errorHandler.js';
+import InvalidFieldException from '../exception/InvalidFieldException.js';
+import MissingDataException from '../exception/MissingDataException.js';
+import NotFoundException from '../exception/NotFoundException.js';
 
 async function create(req, res) {
   const supplyOrder = req.body;
@@ -7,18 +13,12 @@ async function create(req, res) {
     const supplyOrderResult = await ordenProvisionService.create(supplyOrder);
     return res.status(201).json(supplyOrderResult)
   } catch (error) {
-    return res.status(404).json({ error: error.message });
+    const response = errorHandler(error, [DuplicatedNameException, InvalidFieldException, MissingDataException]);
+
+    return res.status(response.status).json(response.body);
   }
 
 };
-
-function getMissingData(supplyOrder) {
-  let missingData = [];
-  if (!supplyOrder.fechaGeneracion) missingData.push('fechaGeneracion');
-  if (!supplyOrder.fechaRecepcion) missingData.push('fechaRecepcion');
-  if (!supplyOrder.proveedorId) missingData.push('proveedorId');
-  return missingData;
-}
 
 async function get(req, res) {
 
@@ -26,7 +26,9 @@ async function get(req, res) {
     const supplyOrders = await ordenProvisionService.get();
     return res.status(200).json(supplyOrders);
   } catch (error) {
-    return res.status(404).json({ error: error.message });
+    const response = errorHandler(error, []);
+
+    return res.status(response.status).json(response.body);
   }
 
 }
@@ -39,7 +41,9 @@ async function getById(req, res) {
     const supplyOrder = await ordenProvisionService.getById(id);
     return res.status(200).json(supplyOrder);
   } catch (error) {
-    return res.status(404).json({ error: error.message });
+    const response = errorHandler(error, [NotFoundException]);
+
+    return res.status(response.status).json(response.body);
   }
 
 }
@@ -52,7 +56,9 @@ async function getByProviderId(req, res) {
     const supplyOrder = await ordenProvisionService.getByProviderId(id);
     return res.status(200).json(supplyOrder);
   } catch (error) {
-    return res.status(404).json({ error: error.message });
+    const response = errorHandler(error, [NotFoundException, MissingDataException]);
+
+    return res.status(response.status).json(response.body);
   }
 
 }
@@ -67,7 +73,9 @@ async function getByDate(req, res) {
     const supplyOrder = await ordenProvisionService.getByDate(desde, hasta);
     return res.status(200).json(supplyOrder);
   } catch (error) {
-    return res.status(404).json({ error: error.message });
+    const response = errorHandler(error, [NotFoundException, MissingDataException]);
+
+    return res.status(response.status).json(response.body);
   }
 
 }
@@ -81,7 +89,9 @@ async function update(req, res) {
     const supplyOrderResult = await ordenProvisionService.update(id, supplyOrder);
     return res.status(200).json(supplyOrderResult);
   } catch (error) {
-    return res.status(404).json({ error: error.message });
+    const response = errorHandler(error, [NotFoundException, MissingDataException]);
+
+    return res.status(response.status).json(response.body);
   }
 
 }
@@ -98,7 +108,9 @@ async function updateState(req, res) {
     }
     return res.status(200).json(supplyOrderResult);
   } catch (error) {
-    return res.status(404).json({ error: error.message });
+    const response = errorHandler(error, [NotFoundException, MissingDataException]);
+
+    return res.status(response.status).json(response.body);
   }
 
 }

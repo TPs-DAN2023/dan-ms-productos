@@ -27,7 +27,7 @@ async function get(req, res) {
     const productos = await productoService.get(nombre);
     return res.status(200).json(productos);
   } catch (error) {
-    const response = errorHandler(error, [NotFoundException]);
+    const response = errorHandler(error, []);
 
     return res.status(response.status).json(response.body);
   }
@@ -57,7 +57,9 @@ async function getByCategoryName(req, res) {
     const producto = await productoService.getByCategoryName(nombre);
     return res.status(200).json(producto);
   } catch (error) {
-    return res.status(404).json({ error: error.message });
+    const response = errorHandler(error, [NotFoundException, MissingDataException]);
+
+    return res.status(response.status).json(response.body);
   }
 
 }
@@ -70,7 +72,9 @@ async function getByProviderName(req, res) {
     const producto = await productoService.getByProviderName(nombre);
     return res.status(200).json(producto);
   } catch (error) {
-    return res.status(404).json({ error: error.message });
+    const response = errorHandler(error, [NotFoundException, MissingDataException]);
+
+    return res.status(response.status).json(response.body);
   }
 
 }
@@ -83,7 +87,9 @@ async function getByActualStock(req, res) {
     const producto = await productoService.getByActualStock(cantidad);
     return res.status(200).json(producto);
   } catch (error) {
-    return res.status(404).json({ error: error.message });
+    const response = errorHandler(error, [NotFoundException, MissingDataException]);
+
+    return res.status(response.status).json(response.body);
   }
 
 }
@@ -97,7 +103,9 @@ async function update(req, res) {
     const producto = await productoService.update(id, prod);
     return res.status(200).json(producto);
   } catch (error) {
-    return res.status(404).json({ error: error.message });
+    const response = errorHandler(error, [NotFoundException, MissingDataException]);
+
+    return res.status(response.status).json(response.body);
   }
 }
 
@@ -110,7 +118,9 @@ async function updateStock(req, res) {
     const producto = await productoService.updateStock(id, cantidad);
     return res.status(200).json(producto);
   } catch (error) {
-    return res.status(404).json({ error: error.message });
+    const response = errorHandler(error, [NotFoundException, MissingDataException]);
+
+    return res.status(response.status).json(response.body);
   }
 }
 
@@ -120,9 +130,11 @@ async function deleteProd(req, res) {
 
   try {
     const producto = await productoService.deleteProd(id);
-    return res.status(200).json(producto);
+    return res.status(200).json({ message: `Producto ${producto.id} eliminado exitosamente` });
   } catch (error) {
-    return res.status(404).json({ error: error.message });
+    const response = errorHandler(error, [NotFoundException, MissingDataException]);
+
+    return res.status(response.status).json(response.body);
   }
 }
 
