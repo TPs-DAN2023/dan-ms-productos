@@ -1,11 +1,9 @@
 import productoService from '../service/ProductoService.js';
 import DuplicatedNameException from '../exception/DuplicatedFieldException.js';
 import errorHandler from '../utils/errorHandler.js';
-import InvalidNameException from '../exception/InvalidNameException.js';
+import InvalidFieldException from '../exception/InvalidFieldException.js';
 import MissingDataException from '../exception/MissingDataException.js';
 import NotFoundException from '../exception/NotFoundException.js';
-import InvalidDescriptionException from '../exception/InvalidDescriptionException.js';
-import InvalidActualStockException from '../exception/InvalidActualStockException.js';
 
 async function create(req, res) {
 
@@ -15,7 +13,7 @@ async function create(req, res) {
     const producto = await productoService.create(prod);
     return res.status(201).json(producto)
   } catch (error) {
-    const response = errorHandler(error, [DuplicatedNameException, InvalidNameException, InvalidDescriptionException, InvalidActualStockException, MissingDataException]);
+    const response = errorHandler(error, [DuplicatedNameException, InvalidFieldException, MissingDataException]);
 
     return res.status(response.status).json(response.body);
   }

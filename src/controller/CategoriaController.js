@@ -1,7 +1,7 @@
 import categoriaService from '../service/CategoriaService.js';
 import DuplicatedNameException from '../exception/DuplicatedFieldException.js';
 import errorHandler from '../utils/errorHandler.js';
-import InvalidNameException from '../exception/InvalidNameException.js';
+import InvalidFieldException from '../exception/InvalidFieldException.js';
 import MissingDataException from '../exception/MissingDataException.js';
 import NotFoundException from '../exception/NotFoundException.js';
 
@@ -13,7 +13,7 @@ async function create(req, res) {
     const categoryResult = await categoriaService.create(category);
     return res.status(201).json(categoryResult)
   } catch (error) {
-    const response = errorHandler(error, [DuplicatedNameException, InvalidNameException, MissingDataException]);
+    const response = errorHandler(error, [DuplicatedNameException, InvalidFieldException, MissingDataException]);
 
     return res.status(response.status).json(response.body);
   }

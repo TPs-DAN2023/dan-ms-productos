@@ -1,7 +1,4 @@
 import categoriaRepo from "../repository/CategoriaRepo.js"
-import DuplicatedNameException from "../exception/DuplicatedFieldException.js";
-import InvalidNameException from "../exception/InvalidNameException.js";
-import MissingDataException from "../exception/MissingDataException.js";
 import NotFoundException from "../exception/NotFoundException.js";
 import { validateCategoryFields } from "../utils/validation.js";
 

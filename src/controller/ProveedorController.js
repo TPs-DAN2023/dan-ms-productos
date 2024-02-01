@@ -1,8 +1,7 @@
 import proveedorService from '../service/ProveedorService.js';
 import DuplicatedNameException from '../exception/DuplicatedFieldException.js';
 import errorHandler from '../utils/errorHandler.js';
-import InvalidMailException from '../exception/InvalidMailException.js';
-import InvalidNameException from '../exception/InvalidNameException.js';
+import InvalidFieldException from '../exception/InvalidFieldException.js';
 import MissingDataException from '../exception/MissingDataException.js';
 import NotFoundException from '../exception/NotFoundException.js';
 
@@ -14,7 +13,7 @@ async function create(req, res) {
     const providerResult = await proveedorService.create(provider);
     return res.status(201).json(providerResult)
   } catch (error) {
-    const response = errorHandler(error, [DuplicatedNameException, InvalidNameException, InvalidMailException, MissingDataException]);
+    const response = errorHandler(error, [DuplicatedNameException, InvalidFieldException, MissingDataException]);
 
     return res.status(response.status).json(response.body);
   }

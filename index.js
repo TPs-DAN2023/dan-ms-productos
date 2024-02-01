@@ -3,7 +3,6 @@ import routerProductos from './src/routes/ProductoRoutes.js';
 import routerCategorias from './src/routes/CategoriaRoutes.js';
 import routerProveedores from './src/routes/ProveedorRoutes.js';
 import routerOrdenesProvision from './src/routes/OrdenProvisionRoutes.js';
-import routerOrdenesProvisionDetalle from './src/routes/OrdenProvisionDetalleRoutes.js';
 
 const PORT = process.env.PORT ?? 1234;
 
