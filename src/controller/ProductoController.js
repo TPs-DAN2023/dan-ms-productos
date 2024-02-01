@@ -1,31 +1,26 @@
 import productoService from '../service/ProductoService.js';
+import DuplicatedNameException from '../exception/DuplicatedFieldException.js';
+import errorHandler from '../utils/errorHandler.js';
+import InvalidNameException from '../exception/InvalidNameException.js';
+import MissingDataException from '../exception/MissingDataException.js';
+import NotFoundException from '../exception/NotFoundException.js';
+import InvalidDescriptionException from '../exception/InvalidDescriptionException.js';
+import InvalidActualStockException from '../exception/InvalidActualStockException.js';
 
 async function create(req, res) {
 
   const prod = req.body;
 
-  // puede haber productos sin proveedor o categoria?
-  if (!prod.nombre || !prod.descripcion || !prod.proveedorId || !prod.stockActual || !prod.categoriaId)
-    return res.status(400).json({ error: 'Faltan datos', message: getMissingData(prod) });
-
   try {
     const producto = await productoService.create(prod);
     return res.status(201).json(producto)
   } catch (error) {
-    return res.status(404).json({ error: error.message });
+    const response = errorHandler(error, [DuplicatedNameException, InvalidNameException, InvalidDescriptionException, InvalidActualStockException, MissingDataException]);
+
+    return res.status(response.status).json(response.body);
   }
 
 };
-
-function getMissingData(prod) {
-  let missingData = [];
-  if (!prod.nombre) missingData.push('nombre');
-  if (!prod.descripcion) missingData.push('descripcion');
-  if (!prod.proveedorId) missingData.push('proveedorId');
-  if (!prod.stockActual) missingData.push('stockActual');
-  if (!prod.categoriaId) missingData.push('categoriaId');
-  return missingData;
-}
 
 async function get(req, res) {
 

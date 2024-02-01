@@ -3,22 +3,11 @@ import DuplicatedNameException from "../exception/DuplicatedFieldException.js";
 import InvalidNameException from "../exception/InvalidNameException.js";
 import MissingDataException from "../exception/MissingDataException.js";
 import NotFoundException from "../exception/NotFoundException.js";
+import { validateCategoryFields } from "../utils/validation.js";
 
 async function create(categoria) {
 
-  if (!categoria.nombre)
-    throw new MissingDataException('Faltan campos: nombre');
-
-  if (categoria.nombre.length < 3)
-    throw new InvalidNameException('El nombre de la categoría debe tener al menos 3 caracteres');
-
-  if (categoria.nombre.length > 50)
-    throw new InvalidNameException('El nombre de la categoría debe tener menos de 50 caracteres');
-
-  const categorias = await categoriaRepo.get();
-
-  if (await isDuplicated(categorias, 'nombre', categoria.nombre))
-    throw new DuplicatedNameException('Ya existe una categoría con ese nombre');
+  validateCategoryFields(categoria);
 
   return await categoriaRepo.create(categoria);
 }

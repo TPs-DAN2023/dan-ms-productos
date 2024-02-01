@@ -1,37 +1,64 @@
 import productoRepo from "../repository/ProductoRepo.js"
+import NotFoundException from "../exception/NotFoundException.js";
+import MissingDataException from "../exception/MissingDataException.js";
 
 async function create(producto) {
-  //TODO: validar lógica de negocio
+  validateProductFields(producto);
+
   return await productoRepo.create(producto);
 }
 
 async function get(nombre) {
-  // TODO: validar lógica de negocio
   return await productoRepo.get(nombre);
 }
 
 async function getById(id) {
-  // TODO: validar lógica de negocio
-  return await productoRepo.getById(id);
+  const producto = await productoRepo.getById(id);
+
+  if (!producto)
+    throw new NotFoundException(`No existe el producto con el id especificado (id=${id})`);
+
+  return producto;
 }
 
 async function getByCategoryName(nombre) {
-  // TODO: validar lógica de negocio
-  return await productoRepo.getByCategoryName(nombre);
+
+  if (!nombre)
+    throw new MissingDataException('El nombre de la categoría es requerido');
+
+  const category = await categoriaRepo.get(nombre);
+
+  if (!category)
+    throw new NotFoundException(`No existe la categoría con el nombre especificado (nombre=${nombre})`);
+
+  return await productoRepo.getByCategory(category);
 }
 
 async function getByProviderName(nombre) {
-  // TODO: validar lógica de negocio
-  return await productoRepo.getByProviderName(nombre);
+
+  if (!nombre)
+    throw new MissingDataException('El nombre del proveedor es requerido');
+
+  const provider = await proveedorRepo.get(nombre);
+
+  if (!provider)
+    throw new NotFoundException(`No existe el proveedor con el nombre especificado (nombre=${nombre})`);
+
+  return await productoRepo.getByProvider(provider);
 }
 
 async function getByActualStock(cantidad) {
-  // TODO: validar lógica de negocio
+
+  if (cantidad < 0)
+    throw new InvalidActualStockException('La cantidad de stock actual no puede ser negativa');
+
   return await productoRepo.getByActualStock(cantidad);
 }
 
 async function update(id, producto) {
-  // TODO: validar lógica de negocio
+
+  validateProductFields(producto);
+
   return await productoRepo.update(id, producto);
 }
 
