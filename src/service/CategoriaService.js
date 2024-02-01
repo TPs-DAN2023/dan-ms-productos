@@ -4,9 +4,12 @@ import { validateCategoryFields } from "../utils/validation.js";
 
 async function create(categoria) {
 
-  validateCategoryFields(categoria);
-
-  return await categoriaRepo.create(categoria);
+  try {
+    await validateCategoryFields(categoria);
+    return await categoriaRepo.create(categoria);
+  } catch (error) {
+    throw error;
+  }
 }
 
 async function get(nombre) {

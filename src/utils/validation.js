@@ -2,24 +2,27 @@ import DuplicatedFieldException from "../exception/DuplicatedFieldException.js";
 import InvalidFieldException from "../exception/InvalidFieldException.js";
 import MissingDataException from "../exception/MissingDataException.js";
 import NotFoundException from "../exception/NotFoundException.js";
+import categoriaRepo from "../repository/CategoriaRepo.js";
+import proveedorRepo from "../repository/ProveedorRepo.js";
+import productoRepo from "../repository/ProductoRepo.js";
 
-export default function isDuplicated(list, field, value) {
+export function isDuplicated(list, field, value) {
   return list.some(item => item[field] === value);
 }
 
-export default function isEmailValid(email) {
+export function isEmailValid(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-export default function isNameValid(name) {
+export function isNameValid(name) {
   return name.length >= 3 && name.length <= 80;
 }
 
-export default function isDescriptionValid(description) {
+export function isDescriptionValid(description) {
   return description.length >= 3 && description.length <= 200;
 }
 
-export default function isStockValid(stock) {
+export function isStockValid(stock) {
   return stock >= 0;
 }
 
@@ -31,20 +34,24 @@ function getMissingData(prod, fields) {
   return missingData;
 }
 
-export default async function validateCategoryFields(category) {
-  if (!category.nombre)
-    throw new MissingDataException('Faltan campos: nombre');
+export async function validateCategoryFields(category) {
+  try {
+    if (!category.nombre)
+      throw new MissingDataException('Faltan campos: nombre');
 
-  if (!isNameValid(category.nombre))
-    throw new InvalidFieldException('El nombre de la categoría debe tener entre 3 y 80 caracteres');
+    if (!isNameValid(category.nombre))
+      throw new InvalidFieldException('El nombre de la categoría debe tener entre 3 y 80 caracteres');
 
-  const categories = await categoriaRepo.get();
+    const categories = await categoriaRepo.get();
 
-  if (await isDuplicated(categories, 'nombre', category.nombre))
-    throw new DuplicatedFieldException('Ya existe una categoría con ese nombre');
+    if (await isDuplicated(categories, 'nombre', category.nombre))
+      throw new DuplicatedFieldException('Ya existe una categoría con ese nombre');
+  } catch (error) {
+    throw error;
+  }
 }
 
-export default async function validateProviderFields(provider) {
+export async function validateProviderFields(provider) {
   if (!provider.nombre || !provider.mail)
     throw new MissingDataException(`Faltan campos: ${getMissingData(provider, ['nombre', 'mail']).join(', ')}`);
 
@@ -63,7 +70,7 @@ export default async function validateProviderFields(provider) {
     throw new DuplicatedFieldException('Ya existe un proveedor con ese mail');
 }
 
-export default async function validateProductFields(product) {
+export async function validateProductFields(product) {
   if (!product.nombre || !product.descripcion || !product.proveedorId || !product.stockActual || !product.categoriaId)
     throw new MissingDataException(`Faltan campos: ${getMissingData(product, ['nombre', 'descripcion', 'proveedorId', 'stockActual', 'categoriaId']).join(', ')}`);
 
@@ -91,7 +98,7 @@ export default async function validateProductFields(product) {
     throw new DuplicatedFieldException('Ya existe un producto con ese nombre');
 }
 
-export default async function validateSupplyOrderFields(supplyOrder) {
+export async function validateSupplyOrderFields(supplyOrder) {
   if (!supplyOrder.fechaGeneracion || !supplyOrder.proveedorId)
     throw new MissingDataException(`Faltan campos: ${getMissingData(supplyOrder, ['fechaGeneracion', 'proveedorId']).join(', ')}`);
 
@@ -107,7 +114,7 @@ export default async function validateSupplyOrderFields(supplyOrder) {
     throw new NotFoundException(`No existe el proveedor con el id especificado (id=${supplyOrder.proveedorId})`);
 }
 
-export default async function validateSupplyOrderDetailFields(supplyOrderDetail) {
+export async function validateSupplyOrderDetailFields(supplyOrderDetail) {
   if (!supplyOrderDetail.productoId || !supplyOrderDetail.cantidad || !supplyOrderDetail.precio)
     throw new MissingDataException(`Faltan campos: ${getMissingData(supplyOrderDetail, ['productoId', 'cantidad', 'precio']).join(', ')}`);
 

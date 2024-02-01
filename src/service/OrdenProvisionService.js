@@ -1,5 +1,5 @@
 import ordenProvisionRepo from "../repository/OrdenProvisionRepo.js"
-import { validateSupplyOrderFields } from "../utils/validations.js";
+import { validateSupplyOrderFields, validateSupplyOrderDetailFields } from "../utils/validation.js";
 import NotFoundException from "../exception/NotFoundException.js";
 import MissingDataException from "../exception/MissingDataException.js";
 import EstadoOrdenProvision from '../constants/EstadoOrdenProvision.js';

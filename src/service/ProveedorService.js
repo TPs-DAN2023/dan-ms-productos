@@ -1,5 +1,5 @@
 import proveedorRepo from "../repository/ProveedorRepo.js";
-import { validateProviderFields } from "../utils/validations.js";
+import { validateProviderFields } from "../utils/validation.js";
 
 async function create(proveedor) {
 
@@ -9,12 +9,16 @@ async function create(proveedor) {
 }
 
 async function get(nombre) {
-  // TODO: validar lógica de negocio
   return await proveedorRepo.get(nombre);
 }
 
 async function getById(id) {
-  // TODO: validar lógica de negocio
+
+  const proveedor = await proveedorRepo.getById(id);
+
+  if (!proveedor)
+    throw new NotFoundException(`No existe el proveedor con el id especificado (id=${id})`);
+
   return await proveedorRepo.getById(id);
 }
 

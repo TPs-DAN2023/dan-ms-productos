@@ -8,7 +8,7 @@ POST http://localhost:1234/api/categorias HTTP/1.1
 content-type: application/json
 
 {
-  "nombre": "Tremendukis"
+  "nombre": "Categoria3"
 }
 
 ### Obtener todas las categorias
@@ -28,7 +28,7 @@ content-type: application/json
 
 {
   "nombre": "Jose Rodriguez",
-  "mail": "raulperez@prueba.com"
+  "mail": "joserodriguez@gmail.com"
 }
 
 ### Obtener todos los proveedores
@@ -58,25 +58,25 @@ content-type: application/json
 {
   "nombre": "Pepsi",
   "descripcion": "Gaseosa",
-  "proveedorId": 3,
+  "proveedorId": 1,
   "stockActual": 25,
-  "categoriaId": 2
+  "categoriaId": 1
 }
 
 ### Obtener productos por nombre del producto (ej: Pan)
 GET http://localhost:1234/api/productos?nombre=Pan
 
 ### Obtener productos por nombre del proveedor (ej: Jose)
-GET http://localhost:1234/api/productos/proveedor/Juan
+GET http://localhost:1234/api/productos/proveedor/Jose
 
 ### Obtener productos por nombre de la categoria (ej: Tremendukis)
-GET http://localhost:1234/api/productos/categoria/Tremendukis
+GET http://localhost:1234/api/productos/categoria/Categoria1
 
 ### Obtener productos por stock actual (ej: 10)
 GET http://localhost:1234/api/productos/stock/10
 
 ### Modificar un producto existente (ej: 1)
-PUT http://localhost:1234/api/productos/3 HTTP/1.1
+PUT http://localhost:1234/api/productos/1 HTTP/1.1
 content-type: application/json
 
 {
@@ -109,11 +109,43 @@ content-type: application/json
   "fechaGeneracion": "2021-05-01T00:00:00.000Z",
   "fechaRecepcion": null,
   "esCancelada": false,
-  "proveedorId": 1
+  "proveedorId": 1,
+  "detalles": [
+    {
+      "productoId": 1,
+      "cantidad": 10,
+      "precio": 100
+    },
+    {
+      "productoId": 2,
+      "cantidad": 5,
+      "precio": 200
+    }
+  ]
 }
 
 ### Modificar una orden existente (ej: 1)
-PUT http://localhost:1234/api/ordenes/1
+PUT http://localhost:1234/api/ordenes/1 HTTP/1.1
+content-type: application/json
+
+{
+  "fechaGeneracion": "2021-05-01T00:00:00.000Z",
+  "fechaRecepcion": null,
+  "esCancelada": false,
+  "proveedorId": 1,
+  "detalles": [
+    {
+      "productoId": 1,
+      "cantidad": 20,
+      "precio": 4500
+    },
+    {
+      "productoId": 2,
+      "cantidad": 10,
+      "precio": 3000
+    }
+  ]
+}
 
 ### Modificar solo un campo de una orden existente (ej: 1)
 PATCH http://localhost:1234/api/ordenes/1

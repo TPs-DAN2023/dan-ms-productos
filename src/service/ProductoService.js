@@ -1,6 +1,7 @@
 import productoRepo from "../repository/ProductoRepo.js"
 import NotFoundException from "../exception/NotFoundException.js";
 import MissingDataException from "../exception/MissingDataException.js";
+import { validateProductFields } from "../utils/validation.js";
 
 async function create(producto) {
   validateProductFields(producto);
