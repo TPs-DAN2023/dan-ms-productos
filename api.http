@@ -38,9 +38,6 @@ content-type: application/json
 ### Obtener un unico proveedor por id (ej: 1)
 GET http://localhost:1234/api/proveedores/1
 
-### Obtener todas las ordenes de un proveedor por id (ej: 1)
-GET http://localhost:1234/api/proveedores/1/ordenes
-
 ### Obtener proveedores por nombre (ej: Jose)
 GET http://localhost:1234/api/proveedores?nombre=Jose
 
@@ -68,7 +65,7 @@ GET http://localhost:1234/api/productos?nombre=Pepsi
 GET http://localhost:1234/api/productos/proveedor/Jose
 
 ### Obtener productos por nombre de la categoria (ej: Tremendukis)
-GET http://localhost:1234/api/productos/categoria/Categoria1
+GET http://localhost:1234/api/productos/categoria/Tremendukis
 
 ### Obtener productos por stock actual (ej: 10)
 GET http://localhost:1234/api/productos/stock/10
@@ -81,7 +78,7 @@ content-type: application/json
   "nombre": "Coca Cola",
   "descripcion": "Gaseosa!",
   "proveedorId": 1,
-  "stockActual": 5,
+  "stockActual": 10,
   "categoriaId": 1
 }
 
@@ -119,13 +116,17 @@ content-type: application/json
 ### Obtener una unica orden por id (ej: 1)
 GET http://localhost:1234/api/ordenes/1
 
-### Obtener ordenes por fecha minima de generacion (ej: date?)
-GET http://localhost:1234/api/ordenes?minFechaGen= date?
+### Obtener ordenes por fechas generacion (ej: fechaInicio=2021-05-01&fechaFin=2021-05-02)
+GET http://localhost:1234/api/ordenes/fechaGeneracion?fechaInicio=2021-05-01&fechaFin=2021-05-02
+
+### Obtener ordenes por fechas de recepción (ej: fechaInicio=2021-05-01&fechaFin=2021-05-02)
+GET http://localhost:1234/api/ordenes/fechaRecepcion?fechaInicio=2021-05-01&fechaFin=2021-05-02
 
 ### Obtener todos las ordenes de un unico proveedor por id (ej: 1)
 GET http://localhost:1234/api/ordenes/proveedor/1
 
 ### Modificar una orden existente (ej: 1)
+# Por ahora los detalles no se pueden updatear, solo la info de la orden
 PUT http://localhost:1234/api/ordenes/1 HTTP/1.1
 content-type: application/json
 
@@ -133,23 +134,11 @@ content-type: application/json
   "fechaGeneracion": "2021-05-01T00:00:00.000Z",
   "fechaRecepcion": null,
   "esCancelada": false,
-  "proveedorId": 1,
-  "detalles": [
-    {
-      "productoId": 1,
-      "cantidad": 20,
-      "precio": 4500
-    },
-    {
-      "productoId": 2,
-      "cantidad": 10,
-      "precio": 3000
-    }
-  ]
+  "proveedorId": 1
 }
 
 ### Marcar una orden como cancelada (ej: 1)
-PATCH http://localhost:1234/api/ordenes/1/cancelada
+PATCH http://localhost:1234/api/ordenes/1/estado/cancelada
 
 ### Marcar una orden como recibida (ej: 2)
-PATCH http://localhost:1234/api/ordenes/2/recibida
+PATCH http://localhost:1234/api/ordenes/2/estado/recibida
