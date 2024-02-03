@@ -79,13 +79,37 @@ async function getByProviderId(id) {
   }
 }
 
-// TODO: Validar si es correcto
-async function getByDate(desde, hasta) {
+async function getByGenerationDate(fechaInicio, fechaFin) {
+
+  if (!fechaInicio || !fechaFin)
+    throw new MissingDataException('Falta especificar la fecha de inicio y/o fin');
+
+  if (fechaInicio > fechaFin)
+    throw new InvalidFieldException('La fecha de inicio no puede ser mayor a la fecha de fin');
+
+  if (!isDateValid(fechaInicio) || !isDateValid(fechaFin))
+    throw new InvalidFieldException('La fecha de inicio y/o fin no tienen un formato válido (deben ser "YYYY-MM-DD")');
 
   try {
+    return await ordenProvisionRepo.getByGenerationDate(fechaInicio, fechaFin);
+  } catch (error) {
+    throw error;
+  }
+}
 
-    return []
-    // return await ordenProvisionRepo.getByDate(desde, hasta);
+async function getByReceptionDate(fechaInicio, fechaFin) {
+
+  if (!fechaInicio || !fechaFin)
+    throw new MissingDataException('Falta especificar la fecha de inicio y/o fin');
+
+  if (fechaInicio > fechaFin)
+    throw new InvalidFieldException('La fecha de inicio no puede ser mayor a la fecha de fin');
+
+  if (!isDateValid(fechaInicio) || !isDateValid(fechaFin))
+    throw new InvalidFieldException('La fecha de inicio y/o fin no tienen un formato válido (deben ser "YYYY-MM-DD")');
+
+  try {
+    return await ordenProvisionRepo.getByReceptionDate(fechaInicio, fechaFin);
   } catch (error) {
     throw error;
   }
@@ -151,4 +175,4 @@ async function updateState(id, estado) {
   }
 }
 
-export default { create, get, getById, getByProviderId, getByDate, update, updateState };
+export default { create, get, getById, getByProviderId, getByGenerationDate, getByReceptionDate, update, updateState };

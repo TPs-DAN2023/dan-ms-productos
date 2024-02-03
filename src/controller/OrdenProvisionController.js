@@ -63,17 +63,32 @@ async function getByProviderId(req, res) {
 
 }
 
-// TODO: Ver si está bien así
-async function getByDate(req, res) {
+async function getByGenerationDate(req, res) {
 
-  const desde = req.params.desde;
-  const hasta = req.params.hasta;
+  const fechaInicio = req.params.fechaInicio;
+  const fechaFin = req.params.fechaFin;
 
   try {
-    const supplyOrder = await ordenProvisionService.getByDate(desde, hasta);
+    const supplyOrder = await ordenProvisionService.getByGenerationDate(fechaInicio, fechaFin);
     return res.status(200).json(supplyOrder);
   } catch (error) {
-    const response = errorHandler(error, [NotFoundException, MissingDataException]);
+    const response = errorHandler(error, [MissingDataException]);
+    console.log(error)
+    return res.status(response.status).json(response.body);
+  }
+
+}
+
+async function getByReceptionDate(req, res) {
+
+  const fechaInicio = req.params.fechaInicio;
+  const fechaFin = req.params.fechaFin;
+
+  try {
+    const supplyOrder = await ordenProvisionService.getByReceptionDate(fechaInicio, fechaFin);
+    return res.status(200).json(supplyOrder);
+  } catch (error) {
+    const response = errorHandler(error, [MissingDataException]);
     console.log(error)
     return res.status(response.status).json(response.body);
   }
@@ -112,4 +127,4 @@ async function updateState(req, res) {
 
 }
 
-export default { create, get, getById, getByProviderId, getByDate, update, updateState };
+export default { create, get, getById, getByProviderId, getByGenerationDate, getByReceptionDate, update, updateState };

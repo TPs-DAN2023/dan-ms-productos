@@ -68,13 +68,32 @@ async function getByProviderId(id) {
   }
 }
 
-async function getByDate(desde, hasta) {
+async function getByGenerationDate(fechaInicio, fechaFin) {
   try {
     return await prisma.ordenProvision.findMany({
       where: {
         fechaGeneracion: {
-          gte: desde,
-          lte: hasta
+          gte: new Date(fechaInicio),
+          lte: new Date(fechaFin)
+        }
+      },
+      include: {
+        proveedor: true,
+        detalles: true
+      }
+    });
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function getByReceptionDate(fechaInicio, fechaFin) {
+  try {
+    return await prisma.ordenProvision.findMany({
+      where: {
+        fechaRecepcion: {
+          gte: new Date(fechaInicio),
+          lte: new Date(fechaFin)
         }
       },
       include: {
@@ -147,4 +166,4 @@ async function receiptOrder(id) {
   }
 }
 
-export default { create, get, getById, getByProviderId, getByDate, update, cancelOrder, receiptOrder };
+export default { create, get, getById, getByProviderId, getByGenerationDate, getByReceptionDate, update, cancelOrder, receiptOrder };
