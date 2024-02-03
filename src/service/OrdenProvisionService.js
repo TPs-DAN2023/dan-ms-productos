@@ -6,8 +6,9 @@ import NotFoundException from "../exception/NotFoundException.js";
 import ordenProvisionDetalleRepo from "../repository/OrdenProvisionDetalleRepo.js";
 import ordenProvisionRepo from "../repository/OrdenProvisionRepo.js"
 import productoRepo from "../repository/ProductoRepo.js";
-import proveedorRepo from "../repository/ProveedorRepo.js";
+import ProductsFromDifferentProvidersException from "../exception/ProductsFromDifferentProvidersException.js";
 import ProductStockNotAvailableException from "../exception/ProductStockNotAvailableException.js";
+import proveedorRepo from "../repository/ProveedorRepo.js";
 
 async function create(ordenProvision) {
   try {
@@ -23,6 +24,10 @@ async function create(ordenProvision) {
 
       if (detalle.cantidad > product.stockActual)
         throw new InvalidFieldException(`La cantidad solicitada (${detalle.cantidad}) del producto (${product.nombre}) supera su stock actual (${product.stockActual})`);
+
+      // Ask if all products are from the same provider
+      if (product.proveedorId !== supplyOrder.proveedorId)
+        throw new ProductsFromDifferentProvidersException(`No se puede recibir la orden de provisión ya que el producto ${product.nombre} no pertenece al proveedor (id=${supplyOrder.proveedorId}) de la orden de provisión`);
     }));
 
     const createdSupplyOrder = await ordenProvisionRepo.create(ordenProvision);
@@ -62,9 +67,6 @@ async function getById(id) {
 
 async function getByProviderId(id) {
 
-  if (!id)
-    throw new MissingDataException('El id del proveedor es requerido');
-
   try {
     const provider = await proveedorRepo.getById(id);
 
@@ -81,11 +83,6 @@ async function getByProviderId(id) {
 async function getByDate(desde, hasta) {
 
   try {
-    if (!desde || !hasta)
-      throw new MissingDataException('La fecha de inicio y fin son requeridas');
-
-    if (desde > hasta)
-      throw new InvalidFieldException('La fecha de inicio no puede ser mayor a la fecha de fin');
 
     return []
     // return await ordenProvisionRepo.getByDate(desde, hasta);
@@ -117,27 +114,22 @@ async function updateState(id, estado) {
     if (!POSSIBLE_STATES.includes(estado))
       throw new InvalidFieldException('El estado de la orden de provisión es inválido (debe ser "recibida" o "cancelada")');
 
-    console.log('service pasa primera validacion')
     const supplyOrder = await ordenProvisionRepo.getById(id);
 
     if (!supplyOrder)
       throw new NotFoundException(`No existe la orden de provisión con el id especificado (id=${id})`);
 
-    console.log('service pasa segunda validacion')
     // Ask if the orden has already been canceled or received
     if (supplyOrder.esCancelada || supplyOrder.fechaRecepcion)
       throw new InvalidFieldException('La orden de provisión ya ha sido ' + (supplyOrder.esCancelada ? 'cancelada' : 'recibida') + ' y no puede ser modificada');
 
-    console.log('service pasa tercera validacion')
     if (estado === EstadoOrdenProvision.CANCELADA) {
-      console.log('service cancelada')
       return await ordenProvisionRepo.cancelOrder(id);
     }
 
     // Ask if all products have the minimum stock available
     await Promise.all(supplyOrder.detalles.map(async detalle => {
       const product = await productoRepo.getById(detalle.productoId);
-      console.log('valida cada prod')
 
       if (detalle.cantidad > product.stockActual)
         throw new ProductStockNotAvailableException(`La cantidad solicitada (${detalle.cantidad}) del producto (${product.nombre}) supera su stock actual (${product.stockActual})`);
@@ -146,13 +138,11 @@ async function updateState(id, estado) {
     // If so, update the stock of each product
     await Promise.all(supplyOrder.detalles.map(async detalle => {
       const product = await productoRepo.getById(detalle.productoId);
-      console.log('resta stock cada prod')
 
       product.stockActual -= detalle.cantidad;
     }));
 
     const supplyOrderResult = await ordenProvisionRepo.receiveOrder(id);
-    console.log('order', supplyOrderResult)
     // Finally, update the state of the supply order to be received
     // return await ordenProvisionRepo.receiveOrder(id);
     return supplyOrderResult;
