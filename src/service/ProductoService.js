@@ -21,12 +21,16 @@ async function get(nombre) {
 }
 
 async function getById(id) {
-  const producto = await productoRepo.getById(id);
+  try {
+    const producto = await productoRepo.getById(id);
 
-  if (!producto)
-    throw new NotFoundException(`No existe el producto con el id especificado (id=${id})`);
+    if (!producto)
+      throw new NotFoundException(`No existe el producto con el id especificado (id=${id})`);
 
-  return producto;
+    return producto;
+  } catch (error) {
+    throw error;
+  }
 }
 
 async function getByCategoryName(nombre) {
@@ -34,12 +38,16 @@ async function getByCategoryName(nombre) {
   if (!nombre)
     throw new MissingDataException('El nombre de la categoría es requerido');
 
-  const category = await categoriaRepo.get(nombre);
+  try {
+    const category = await categoriaRepo.get(nombre);
 
-  if (!category)
-    throw new NotFoundException(`No existe la categoría con el nombre especificado (nombre=${nombre})`);
+    if (!category)
+      throw new NotFoundException(`No existe la categoría con el nombre especificado (nombre=${nombre})`);
 
-  return await productoRepo.getByCategory(category);
+    return await productoRepo.getByCategoryName(nombre);
+  } catch (error) {
+    throw error;
+  }
 }
 
 async function getByProviderName(nombre) {
@@ -47,12 +55,17 @@ async function getByProviderName(nombre) {
   if (!nombre)
     throw new MissingDataException('El nombre del proveedor es requerido');
 
-  const provider = await proveedorRepo.get(nombre);
+  try {
 
-  if (!provider)
-    throw new NotFoundException(`No existe el proveedor con el nombre especificado (nombre=${nombre})`);
+    const provider = await proveedorRepo.get(nombre);
 
-  return await productoRepo.getByProvider(nombre);
+    if (!provider)
+      throw new NotFoundException(`No existe el proveedor con el nombre especificado (nombre=${nombre})`);
+
+    return await productoRepo.getByProviderName(nombre);
+  } catch (error) {
+    throw error;
+  }
 }
 
 async function getByActualStock(cantidad) {
@@ -64,13 +77,12 @@ async function getByActualStock(cantidad) {
 }
 
 async function update(id, newProduct) {
-
-  const product = await productoRepo.getById(id);
-
-  if (!product)
-    throw new NotFoundException(`No existe el producto con el id especificado (id=${id})`);
-
   try {
+    const product = await productoRepo.getById(id);
+
+    if (!product)
+      throw new NotFoundException(`No existe el producto con el id especificado (id=${id})`);
+
     await validateProductFields(newProduct);
     return await productoRepo.update(id, newProduct);
   } catch (error) {

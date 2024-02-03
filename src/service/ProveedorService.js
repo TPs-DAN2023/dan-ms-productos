@@ -13,17 +13,24 @@ async function create(proveedor) {
 }
 
 async function get(nombre) {
-  return await proveedorRepo.get(nombre);
+  try {
+    return await proveedorRepo.get(nombre);
+  } catch (error) {
+    throw error;
+  }
 }
 
 async function getById(id) {
+  try {
+    const proveedor = await proveedorRepo.getById(id);
 
-  const proveedor = await proveedorRepo.getById(id);
+    if (!proveedor)
+      throw new NotFoundException(`No existe el proveedor con el id especificado (id=${id})`);
 
-  if (!proveedor)
-    throw new NotFoundException(`No existe el proveedor con el id especificado (id=${id})`);
-
-  return await proveedorRepo.getById(id);
+    return proveedor;
+  } catch (error) {
+    throw error;
+  }
 }
 
 export default { create, get, getById }
