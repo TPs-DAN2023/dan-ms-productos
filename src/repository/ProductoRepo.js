@@ -113,6 +113,10 @@ async function update(id, prod) {
         stockActual: prod.stockActual,
         proveedor: { connect: { id: prod.proveedorId } },
         categoria: { connect: { id: prod.categoriaId } }
+      },
+      include: {
+        proveedor: true,
+        categoria: true
       }
     });
   } catch (error) {
@@ -126,6 +130,10 @@ async function updateStock(id, cantidad) {
       where: { id: parseInt(id) },
       data: {
         stockActual: cantidad
+      },
+      include: {
+        proveedor: true,
+        categoria: true
       }
     });
   } catch (error) {

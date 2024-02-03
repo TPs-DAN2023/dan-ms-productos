@@ -19,7 +19,10 @@ async function get(nombre, mail) {
   try {
     const nameWhereClause = nombre ? { nombre: { contains: nombre } } : {};
     const mailWhereClause = mail ? { mail: { contains: mail } } : {};
-    return await prisma.proveedor.findMany({ where: { AND: [nameWhereClause, mailWhereClause] } });
+    return await prisma.proveedor.findMany({
+      where: { AND: [nameWhereClause, mailWhereClause] },
+      include: { ordenesDeProvision: true }
+    });
   } catch (error) {
     throw error;
   }
@@ -31,6 +34,7 @@ async function getById(id) {
       where: {
         id: parseInt(id),
       },
+      include: { ordenesDeProvision: true }
     });
   } catch (error) {
     throw error;

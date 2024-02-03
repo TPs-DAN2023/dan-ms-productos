@@ -10,6 +10,10 @@ async function create(supplyOrder) {
         fechaRecepcion: supplyOrder.fechaRecepcion,
         esCancelada: supplyOrder.esCancelada,
         proveedor: { connect: { id: supplyOrder.proveedorId } },
+      },
+      include: {
+        proveedor: true,
+        detalles: true
       }
     });
   } catch (error) {
@@ -37,6 +41,10 @@ async function getById(id) {
     return await prisma.ordenProvision.findUnique({
       where: {
         id: parseInt(id)
+      },
+      include: {
+        proveedor: true,
+        detalles: true
       }
     });
   } catch (error) {
@@ -49,6 +57,10 @@ async function getByProviderId(id) {
     return await prisma.ordenProvision.findMany({
       where: {
         proveedorId: parseInt(id)
+      },
+      include: {
+        proveedor: true,
+        detalles: true
       }
     });
   } catch (error) {
@@ -64,6 +76,10 @@ async function getByDate(desde, hasta) {
           gte: desde,
           lte: hasta
         }
+      },
+      include: {
+        proveedor: true,
+        detalles: true
       }
     });
   } catch (error) {
@@ -82,6 +98,10 @@ async function update(id, supplyOrder) {
         fechaRecepcion: supplyOrder.fechaRecepcion,
         esCancelada: supplyOrder.esCancelada,
         proveedor: { connect: { id: supplyOrder.proveedorId } },
+      },
+      include: {
+        proveedor: true,
+        detalles: true
       }
     });
   } catch (error) {
@@ -89,7 +109,7 @@ async function update(id, supplyOrder) {
   }
 }
 
-async function cancelOorder(id) {
+async function cancelOrder(id) {
   try {
     return await prisma.ordenProvision.update({
       where: {
@@ -97,6 +117,10 @@ async function cancelOorder(id) {
       },
       data: {
         esCancelada: true
+      },
+      include: {
+        proveedor: true,
+        detalles: true
       }
     });
   } catch (error) {
@@ -112,21 +136,10 @@ async function receiptOrder(id) {
       },
       data: {
         fechaRecepcion: new Date()
-      }
-    });
-  } catch (error) {
-    throw error;
-  }
-}
-
-async function updateState(id, estado) {
-  try {
-    return await prisma.ordenProvision.update({
-      where: {
-        id: parseInt(id)
       },
-      data: {
-        esCancelada: estado
+      include: {
+        proveedor: true,
+        detalles: true
       }
     });
   } catch (error) {
@@ -134,4 +147,4 @@ async function updateState(id, estado) {
   }
 }
 
-export default { create, get, getById, getByProviderId, getByDate, update, updateState };
+export default { create, get, getById, getByProviderId, getByDate, update, cancelOrder, receiptOrder };
