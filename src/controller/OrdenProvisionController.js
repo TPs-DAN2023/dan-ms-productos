@@ -1,10 +1,10 @@
 import ordenProvisionService from '../service/OrdenProvisionService.js';
-import productoService from '../service/ProductoService.js';
 import DuplicatedNameException from '../exception/DuplicatedFieldException.js';
 import errorHandler from '../utils/errorHandler.js';
 import InvalidFieldException from '../exception/InvalidFieldException.js';
 import MissingDataException from '../exception/MissingDataException.js';
 import NotFoundException from '../exception/NotFoundException.js';
+import ProductStockNotAvailableException from '../exception/ProductStockNotAvailableException.js';
 
 async function create(req, res) {
   const supplyOrder = req.body;
@@ -99,16 +99,13 @@ async function update(req, res) {
 async function updateState(req, res) {
 
   const id = req.params.id;
-  const estado = req.body;
+  const estado = req.params.estado;
 
   try {
     const supplyOrderResult = await ordenProvisionService.updateState(id, estado);
-    if (supplyOrderResult.fechaRecepcion) {
-      const productResult = await productoService.modificarStockDeProductos(supplyOrderResult);
-    }
     return res.status(200).json(supplyOrderResult);
   } catch (error) {
-    const response = errorHandler(error, [NotFoundException, MissingDataException]);
+    const response = errorHandler(error, [NotFoundException, MissingDataException, InvalidFieldException, ProductStockNotAvailableException]);
 
     return res.status(response.status).json(response.body);
   }

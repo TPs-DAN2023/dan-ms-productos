@@ -57,7 +57,7 @@ async function getByCategoryName(req, res) {
     const producto = await productoService.getByCategoryName(nombre);
     return res.status(200).json(producto);
   } catch (error) {
-    const response = errorHandler(error, [NotFoundException, MissingDataException]);
+    const response = errorHandler(error, [NotFoundException, MissingDataException, InvalidFieldException]);
 
     return res.status(response.status).json(response.body);
   }
@@ -72,7 +72,7 @@ async function getByProviderName(req, res) {
     const producto = await productoService.getByProviderName(nombre);
     return res.status(200).json(producto);
   } catch (error) {
-    const response = errorHandler(error, [NotFoundException, MissingDataException]);
+    const response = errorHandler(error, [NotFoundException, MissingDataException, InvalidFieldException]);
 
     return res.status(response.status).json(response.body);
   }
@@ -87,7 +87,7 @@ async function getByActualStock(req, res) {
     const producto = await productoService.getByActualStock(cantidad);
     return res.status(200).json(producto);
   } catch (error) {
-    const response = errorHandler(error, [NotFoundException, MissingDataException]);
+    const response = errorHandler(error, [NotFoundException, MissingDataException, InvalidFieldException]);
 
     return res.status(response.status).json(response.body);
   }
@@ -103,7 +103,7 @@ async function update(req, res) {
     const producto = await productoService.update(id, prod);
     return res.status(200).json(producto);
   } catch (error) {
-    const response = errorHandler(error, [NotFoundException, MissingDataException]);
+    const response = errorHandler(error, [NotFoundException, MissingDataException, InvalidFieldException]);
 
     return res.status(response.status).json(response.body);
   }
