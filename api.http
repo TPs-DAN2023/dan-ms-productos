@@ -1,13 +1,13 @@
 ### Probar req cualquiera
-GET http://localhost:1234/
+GET http://localhost:3000/
 
 ### CATEGORIAS
 
 ### Obtener todas las categorias
-GET http://localhost:1234/api/categorias/
+GET http://localhost:3000/api/categorias/
 
 ### Crear una nueva categoria
-POST http://localhost:1234/api/categorias HTTP/1.1
+POST http://localhost:3000/api/categorias HTTP/1.1
 content-type: application/json
 
 {
@@ -15,19 +15,19 @@ content-type: application/json
 }
 
 ### Obtener una unica categoria por id (ej: 1)
-GET http://localhost:1234/api/categorias/18
+GET http://localhost:3000/api/categorias/18
 
 ### Obtener categorias por nombre (ej: Cool)
-GET http://localhost:1234/api/categorias?nombre=Categoria3
+GET http://localhost:3000/api/categorias?nombre=Categoria3
 
 ### PROVEEDORES
 
 ### Crear un nuevo proveedor
 
 ### Obtener todos los proveedores
-GET http://localhost:1234/api/proveedores/
+GET http://localhost:3000/api/proveedores/
 
-POST http://localhost:1234/api/proveedores HTTP/1.1
+POST http://localhost:3000/api/proveedores HTTP/1.1
 content-type: application/json
 
 {
@@ -36,18 +36,18 @@ content-type: application/json
 }
 
 ### Obtener un unico proveedor por id (ej: 1)
-GET http://localhost:1234/api/proveedores/1
+GET http://localhost:3000/api/proveedores/1
 
 ### Obtener proveedores por nombre (ej: Jose)
-GET http://localhost:1234/api/proveedores?nombre=Jose
+GET http://localhost:3000/api/proveedores?nombre=Jose
 
 ### PRODUCTOS
 
 ### Obtener todos los productos
-GET http://localhost:1234/api/productos/
+GET http://localhost:3000/api/productos/
 
 ### Crear un nuevo producto
-POST http://localhost:1234/api/productos HTTP/1.1
+POST http://localhost:3000/api/productos HTTP/1.1
 content-type: application/json
 
 {
@@ -59,19 +59,19 @@ content-type: application/json
 }
 
 ### Obtener productos por nombre del producto (ej: Pepsi)
-GET http://localhost:1234/api/productos?nombre=Pepsi
+GET http://localhost:3000/api/productos?nombre=Pepsi
 
 ### Obtener productos por nombre del proveedor (ej: Jose)
-GET http://localhost:1234/api/productos/proveedor/Jose
+GET http://localhost:3000/api/productos/proveedor/Jose
 
 ### Obtener productos por nombre de la categoria (ej: Tremendukis)
-GET http://localhost:1234/api/productos/categoria/Tremendukis
+GET http://localhost:3000/api/productos/categoria/Tremendukis
 
 ### Obtener productos por stock actual (ej: 10)
-GET http://localhost:1234/api/productos/stock/10
+GET http://localhost:3000/api/productos/stock/10
 
 ### Modificar un producto existente (ej: 1)
-PUT http://localhost:1234/api/productos/1 HTTP/1.1
+PUT http://localhost:3000/api/productos/1 HTTP/1.1
 content-type: application/json
 
 {
@@ -83,15 +83,15 @@ content-type: application/json
 }
 
 ### Eliminar un producto existente (ej: 2)
-DELETE http://localhost:1234/api/productos/2
+DELETE http://localhost:3000/api/productos/2
 
 ### ORDENES
 
 ### Obtener todas las ordenes
-GET http://localhost:1234/api/ordenes/
+GET http://localhost:3000/api/ordenes/
 
 ### Crear una nueva orden
-POST http://localhost:1234/api/ordenes HTTP/1.1
+POST http://localhost:3000/api/ordenes HTTP/1.1
 content-type: application/json
 
 {
@@ -114,20 +114,20 @@ content-type: application/json
 }
 
 ### Obtener una unica orden por id (ej: 1)
-GET http://localhost:1234/api/ordenes/1
+GET http://localhost:3000/api/ordenes/1
 
 ### Obtener ordenes por fechas generacion (ej: fechaInicio=2021-05-01&fechaFin=2021-05-02)
-GET http://localhost:1234/api/ordenes/fechaGeneracion?fechaInicio=2021-05-01&fechaFin=2021-05-02
+GET http://localhost:3000/api/ordenes/fechaGeneracion?fechaInicio=2021-05-01&fechaFin=2021-05-02
 
 ### Obtener ordenes por fechas de recepción (ej: fechaInicio=2021-05-01&fechaFin=2021-05-02)
-GET http://localhost:1234/api/ordenes/fechaRecepcion?fechaInicio=2021-05-01&fechaFin=2021-05-02
+GET http://localhost:3000/api/ordenes/fechaRecepcion?fechaInicio=2021-05-01&fechaFin=2021-05-02
 
 ### Obtener todos las ordenes de un unico proveedor por id (ej: 1)
-GET http://localhost:1234/api/ordenes/proveedor/1
+GET http://localhost:3000/api/ordenes/proveedor/1
 
 ### Modificar una orden existente (ej: 1)
 # Por ahora los detalles no se pueden updatear, solo la info de la orden
-PUT http://localhost:1234/api/ordenes/1 HTTP/1.1
+PUT http://localhost:3000/api/ordenes/1 HTTP/1.1
 content-type: application/json
 
 {
@@ -138,7 +138,7 @@ content-type: application/json
 }
 
 ### Marcar una orden como cancelada (ej: 1)
-PATCH http://localhost:1234/api/ordenes/1/estado/cancelada
+PATCH http://localhost:3000/api/ordenes/1/estado/cancelada
 
 ### Marcar una orden como recibida (ej: 2)
-PATCH http://localhost:1234/api/ordenes/2/estado/recibida
+PATCH http://localhost:3000/api/ordenes/2/estado/recibida
