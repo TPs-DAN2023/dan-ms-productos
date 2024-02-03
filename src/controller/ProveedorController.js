@@ -14,21 +14,20 @@ async function create(req, res) {
     return res.status(201).json(providerResult)
   } catch (error) {
     const response = errorHandler(error, [DuplicatedNameException, InvalidFieldException, MissingDataException]);
-
+    console.log(error)
     return res.status(response.status).json(response.body);
   }
 
 };
 
 async function get(req, res) {
-
   try {
     const nombre = req.query.nombre;
     const providers = await proveedorService.get(nombre);
     return res.status(200).json(providers);
   } catch (error) {
     const response = errorHandler(error, []);
-
+    console.log(error)
     return res.status(response.status).json(response.body);
   }
 
@@ -43,7 +42,7 @@ async function getById(req, res) {
     return res.status(200).json(provider);
   } catch (error) {
     const response = errorHandler(error, [NotFoundException]);
-
+    console.log(error)
     return res.status(response.status).json(response.body);
   }
 }

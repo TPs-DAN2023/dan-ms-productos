@@ -14,7 +14,7 @@ async function create(req, res) {
     return res.status(201).json(categoryResult)
   } catch (error) {
     const response = errorHandler(error, [DuplicatedNameException, InvalidFieldException, MissingDataException]);
-
+    console.log(error)
     return res.status(response.status).json(response.body);
   }
 };
@@ -27,7 +27,7 @@ async function get(req, res) {
     return res.status(200).json(categories);
   } catch (error) {
     const response = errorHandler(error, []);
-
+    console.log(error)
     return res.status(response.status).json(response.body);
   }
 
@@ -42,7 +42,7 @@ async function getById(req, res) {
     return res.status(200).json(category);
   } catch (error) {
     const response = errorHandler(error, [NotFoundException]);
-
+    console.log(error)
     return res.status(response.status).json(response.body);
   }
 
