@@ -11,6 +11,6 @@ routerOrdenesProvision.get('/proveedor/:id', controller.getByProviderId);
 // TODO: Chequear si la siguiente es correcta o no
 routerOrdenesProvision.get('/fecha/:desde/:hasta', controller.getByDate);
 routerOrdenesProvision.put('/:id', controller.update);
-routerOrdenesProvision.patch('/:id/estado', controller.updateState);
+routerOrdenesProvision.patch('/:id/estado/:estado', controller.updateState);
 
 export default routerOrdenesProvision;
