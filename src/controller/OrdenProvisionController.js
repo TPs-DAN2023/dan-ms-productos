@@ -14,7 +14,6 @@ async function create(req, res) {
     return res.status(201).json(supplyOrderResult)
   } catch (error) {
     const response = errorHandler(error, [DuplicatedNameException, InvalidFieldException, MissingDataException]);
-    console.log(error)
     return res.status(response.status).json(response.body);
   }
 
@@ -27,7 +26,6 @@ async function get(req, res) {
     return res.status(200).json(supplyOrders);
   } catch (error) {
     const response = errorHandler(error, []);
-    console.log(error)
     return res.status(response.status).json(response.body);
   }
 
@@ -42,7 +40,6 @@ async function getById(req, res) {
     return res.status(200).json(supplyOrder);
   } catch (error) {
     const response = errorHandler(error, [NotFoundException]);
-    console.log(error)
     return res.status(response.status).json(response.body);
   }
 
@@ -57,7 +54,6 @@ async function getByProviderId(req, res) {
     return res.status(200).json(supplyOrder);
   } catch (error) {
     const response = errorHandler(error, [NotFoundException, MissingDataException]);
-    console.log(error)
     return res.status(response.status).json(response.body);
   }
 
@@ -73,7 +69,6 @@ async function getByGenerationDate(req, res) {
     return res.status(200).json(supplyOrder);
   } catch (error) {
     const response = errorHandler(error, [MissingDataException]);
-    console.log(error)
     return res.status(response.status).json(response.body);
   }
 
@@ -89,7 +84,6 @@ async function getByReceptionDate(req, res) {
     return res.status(200).json(supplyOrder);
   } catch (error) {
     const response = errorHandler(error, [MissingDataException]);
-    console.log(error)
     return res.status(response.status).json(response.body);
   }
 
@@ -105,7 +99,6 @@ async function update(req, res) {
     return res.status(200).json(supplyOrderResult);
   } catch (error) {
     const response = errorHandler(error, [NotFoundException, MissingDataException]);
-    console.log(error)
     return res.status(response.status).json(response.body);
   }
 
@@ -121,7 +114,6 @@ async function updateState(req, res) {
     return res.status(200).json(supplyOrderResult);
   } catch (error) {
     const response = errorHandler(error, [NotFoundException, MissingDataException, InvalidFieldException, ProductStockNotAvailableException]);
-    console.log(error)
     return res.status(response.status).json(response.body);
   }
 
