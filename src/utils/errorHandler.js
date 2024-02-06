@@ -1,4 +1,7 @@
 export default function handleErrors(error, errorClasses) {
+
+  console.log('error', error);
+
   for (const ErrorClass of errorClasses) {
     if (error instanceof ErrorClass) {
       return {
