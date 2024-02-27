@@ -10,6 +10,7 @@ routerProductos.get('/categoria/:nombre', controller.getByCategoryName);
 routerProductos.get('/proveedor/:nombre', controller.getByProviderName);
 routerProductos.get('/stock/:cantidad', controller.getByActualStock);
 routerProductos.put('/:id', controller.update);
+routerProductos.patch('/:id', controller.updateStock);
 routerProductos.delete('/:id', controller.deleteProd);
 
 export default routerProductos;
