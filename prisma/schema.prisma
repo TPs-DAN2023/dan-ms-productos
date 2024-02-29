@@ -7,7 +7,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = "postgresql://pguser:pgpassword@pg-dan:5432/pg-dan?schema=public"
 }
 
 model Categoria {

@@ -5,7 +5,8 @@
   "main": "/src/index.js",
   "scripts": {
     "dev": "node --watch index.js",
-    "dev-watchless": "node index.js"
+    "dev-watchless": "node index.js",
+    "start:migrate:dev": "prisma migrate dev --name init && npm run dev"
   },
   "keywords": [],
   "author": "",
