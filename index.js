@@ -4,11 +4,31 @@ import routerProductos from './src/routes/ProductoRoutes.js';
 import routerCategorias from './src/routes/CategoriaRoutes.js';
 import routerProveedores from './src/routes/ProveedorRoutes.js';
 import routerOrdenesProvision from './src/routes/OrdenProvisionRoutes.js';
+import client from 'prom-client';
 
 const PORT = process.env.PORT ?? 1234;
 
 const app = express();
 app.use(express.json());
+
+// Prometheus metrics
+const counter = new client.Counter({
+  name: 'node_request_operations_total',
+  help: 'The total number of processed requests'
+});
+
+const gauge = new client.Gauge({
+  name: 'node_request_duration_seconds',
+  help: 'Histogram for the duration in seconds.',
+  buckets: [1, 2, 5, 6, 10]
+});
+
+app.use((req, res, next) => {
+  counter.inc();
+  const start = Date.now();
+  res.on('finish', () => gauge.set(Date.now() - start));
+  next();
+});
 
 // Eureka client configuration
 // const client = new Eureka({
@@ -58,6 +78,16 @@ app.use('/api/health', (req, res) => {
     timestamp: new Date().toISOString(),
     serverIp: 'localhost'
   })
+});
+
+app.get('/metrics', async (req, res, next) => {
+  try {
+    const metrics = await client.register.metrics();
+    res.set('Content-Type', client.register.contentType);
+    res.end(metrics);
+  } catch (error) {
+    next(error);
+  }
 });
 
 // la última a la que va a llegar
