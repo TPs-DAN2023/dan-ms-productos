@@ -5,6 +5,7 @@ import routerCategorias from './src/routes/CategoriaRoutes.js';
 import routerProveedores from './src/routes/ProveedorRoutes.js';
 import routerOrdenesProvision from './src/routes/OrdenProvisionRoutes.js';
 import client from 'prom-client';
+import 'dotenv/config';
 
 const PORT = process.env.PORT ?? 1234;
 
