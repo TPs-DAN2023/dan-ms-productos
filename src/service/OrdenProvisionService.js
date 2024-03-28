@@ -22,11 +22,11 @@ async function create(ordenProvision) {
       if (!product)
         throw new NotFoundException(`No existe el producto con el id especificado (id=${detalle.productoId})`);
 
-      if (detalle.cantidad > product.stockActual)
-        throw new InvalidFieldException(`La cantidad solicitada (${detalle.cantidad}) del producto (${product.nombre}) supera su stock actual (${product.stockActual})`);
+      // if (detalle.cantidad > product.stockActual)
+      //   throw new InvalidFieldException(`La cantidad solicitada (${detalle.cantidad}) del producto (${product.nombre}) supera su stock actual (${product.stockActual})`);
 
       // Ask if all products are from the same provider
-      if (product.proveedorId !== supplyOrder.proveedorId)
+      if (product.proveedorId !== ordenProvision.proveedorId)
         throw new ProductsFromDifferentProvidersException(`No se puede recibir la orden de provisión ya que el producto ${product.nombre} no pertenece al proveedor (id=${supplyOrder.proveedorId}) de la orden de provisión`);
     }));
 

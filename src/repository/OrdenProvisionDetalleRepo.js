@@ -57,6 +57,9 @@ async function getByProductId(id) {
     return await prisma.ordenProvisionDetalle.findMany({
       where: {
         productoId: parseInt(id)
+      },
+      include: {
+        ordenProvision: true
       }
     });
   } catch (error) {
