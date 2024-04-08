@@ -37,7 +37,7 @@ async function getPrecio(producto) {
       costo: costo,
     })
   });
-  
+
   if(!res.ok)
     throw new Error(`Error al obtener el precio del producto ${producto.nombre}. id: ${producto.id}`);
 
@@ -47,7 +47,7 @@ async function getPrecio(producto) {
 
 async function get(nombre) {
   const prods = await productoRepo.get(nombre);
-  
+
   await Promise.all(prods.map(async (p) => {
     p.precio = await getPrecio(p);
   }));
@@ -62,12 +62,12 @@ async function getById(id) {
     if (!producto)
       throw new NotFoundException(`No existe el producto con el id especificado (id=${id})`);
 
-      const precio = await getPrecio(producto);
-      
-      return {
-        ...prod,
-        precio: precio
-      };
+    const precio = await getPrecio(producto);
+
+    return {
+      ...producto,
+      precio: precio
+    };
   } catch (error) {
     throw error;
   }
@@ -83,7 +83,7 @@ async function getByCategoryName(nombre) {
 
     if (!category)
       throw new NotFoundException(`No existe la categoría con el nombre especificado (nombre=${nombre})`);
-    
+
     const prods = await productoRepo.getByCategoryName(nombre);
 
     await Promise.all(prods.map(async (p) => {
