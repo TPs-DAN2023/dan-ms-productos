@@ -105,7 +105,7 @@ async function update(req, res) {
 async function updateStock(req, res) {
 
   const id = req.params.id;
-  const cantidad = req.params.cantidad;
+  const cantidad = req.query.cantidad;
 
   try {
     const producto = await productoService.updateStock(id, cantidad);

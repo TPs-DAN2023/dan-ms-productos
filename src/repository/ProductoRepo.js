@@ -129,7 +129,7 @@ async function updateStock(id, cantidad) {
     return await prisma.producto.update({
       where: { id: parseInt(id) },
       data: {
-        stockActual: cantidad
+        stockActual: parseInt(cantidad)
       },
       include: {
         proveedor: true,
