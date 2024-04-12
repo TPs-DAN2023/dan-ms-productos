@@ -94,8 +94,16 @@ export async function validateProductFields(product) {
 
   const products = await productoRepo.get();
 
-  if (await isDuplicated(products, 'nombre', product.nombre))
+  if (isDuplicated(products, 'nombre', product.nombre)) {
+
+    if(!product.id)
     throw new DuplicatedFieldException('Ya existe un producto con ese nombre');
+
+    const duplicactionConflict = products.find(item => item.nombre === product.nombre);
+    if (duplicactionConflict.id != product.id)
+    throw new DuplicatedFieldException('Ya existe un producto con ese nombre');
+  }
+  
 }
 
 export async function validateSupplyOrderFields(supplyOrder) {
